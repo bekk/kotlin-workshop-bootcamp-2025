@@ -1,9 +1,0 @@
-@font-face {
-    font-family: 'DIN';
-    src: url("./ff-din-web-regular.woff2") format('woff2');
-}
-
-@font-face {
-    font-family: 'Newzald';
-    src: url('./Newzald-Book.otf') format("opentype");
-}
