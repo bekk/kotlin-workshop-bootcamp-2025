@@ -13,7 +13,7 @@ Når du definerer en dataklasse får du en del funksjonalitet gratis, som f.eks.
 
 Oppgave:
 
-Åpne filen i introduction som heter "DataClass". Her ligger det en klasse som heter `Konsulent`, og en main funksjon.
+Åpne filen i introduction som heter [DataClass.kt](src/main/kotlin/no/bekk/introduction/DataClass.kt). Her ligger det en klasse som heter `Konsulent`, og en main funksjon.
 
 1. Kjør main funksjonen, og se hva som skjer.
 1. Gjør `Konsulent` om til en `data class` og kjør main funksjonen igjen. Hva skjer nå, og hvorfor?
@@ -37,15 +37,15 @@ Fordelen med å gjøre så mye som mulig `immutable` er at koden ofte blir mer l
 man alltid kan resonnere rundt verdien til en variabel utifra hvordan den ble opprettet, uten å tenke på om den har blitt endret av koden senere.
 Når man jobber med ikke-muterbar data er måten man gjør oppdateringer på å bruke operasjoner som lager en kopi av dataen med de ønskede endringen.
 
-Oppgave 1:
+Oppgavene løses i fila [Mutability.kt](src/main/kotlin/no/bekk/introduction/Mutability.kt)
 
-Åpne filen `Mutability.kt`:
+**Oppgave 1:**
 
 1. Kommenter inn linjen med `sondre.name`, og undersøk feilen du får. Bruk så `copy` for å lage et nytt
    objekt
 2. Bruk så `copy` for å lage et nytt person-objekt med ditt navn.
 
-Oppgave 2:
+**Oppgave 2:**
 
 I standardbiblioteket til Kotlin skiller man på datastrukturer som er muterbare og de som ikke er det. F.eks:
 finnes det både `List<T>` og `MutableList<T>`. Begge disse er generiske lister, men `List` implementerer ikke funksjoner som `add` og `remove`.
@@ -53,7 +53,7 @@ finnes det både `List<T>` og `MutableList<T>`. Begge disse er generiske lister,
 1. Kommenter inn linjen under `numbers`, og fiks feilen.
 
 
-<details><summary>Løsningsforslag til oppgave 2 🤠</summary>
+<details><summary>Løsningsforslag til oppgave 1 🤠</summary>
 
 ```kotlin
 val sondre = Person("Sondre")
@@ -90,7 +90,7 @@ Man kan også gi et parameter en defaultverdi ved å skrive `= <verdi>` etter ty
 
 Oppgave:
 
-Åpne `Funksjoner.kt` og legg til en funksjon på `BekkAnsatt`-klassen som printer "Hallo, name" + valgfri suffix. Suffixen skal ha en defaultverdi.
+Åpne [Funksjoner.kt](src/main/kotlin/no/bekk/introduction/Funksjoner.kt) og legg til en funksjon på `BekkAnsatt`-klassen som printer "Hallo, name" + valgfri suffix. Suffixen skal ha en defaultverdi.
 
 <details><summary> Løsningsforslag 🤠 </summary>
 
@@ -139,7 +139,7 @@ listeMedBekkKonsulenter.filter { it.name != "Ingrid" }
 
 Oppgave:
 
-Åpne filen som heter `HigherOrderFunctions`:
+Åpne filen som heter [HighOrderFunction.kt](src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
 
 1. Gå igjennom `coacher2023`-listen, finn navnene Johan og Ragnhild, og lag en ny liste hvor Johan er i BMC og Ragnhild er i design. Kall listen "realCoacher2023".
 1. Bruk den nye listen, og lag en egen liste "teknologiCoacher" for coachene som er i teknologi-avdelingen.
@@ -165,6 +165,8 @@ val teknologiCoacher = realCoacher2023.filter {
 coacher2023.sumOf { it.yearsInBekk }
 ```
 
+Du kan lese mer om high order functions i Kotlin [her](https://kotlinlang.org/docs/lambdas.html)
+Her bruker vi `when`-uttrykket, som ikke ble dekket i presentasjonen. Det kan du lese mer om [her](https://kotlinlang.org/docs/control-flow.html#when-expression).
 </details>
 
 ## Extension Functions
@@ -260,6 +262,8 @@ Du kan lese mer om extension functions i [den offisielle Kotlin-dokumentasjonen]
 
 # Lage ditt første spill med LibGDX og Kotlin
 
+Gratulerer med vel overstått introduksjon til Kotlin! 🎉
+
 Nå skal vi lage et spill! Du skal styre en firkant på skjermen. Firkanten skal
 unngå andre firkanter som faller ned fra toppen av skjermen. Målet med oppgaven er å gjøre
 deg litt kjent med et par viktige konsepter som du kan ta med deg inn i de litt mer kreative
@@ -271,7 +275,10 @@ Skjelettet av koden er allerede skrevet - og består i hovedsak av tomme metoder
 det er opp til deg å implementere i denne delen av workshopen. Vi tar det stegvis, og når
 alle metodene er implementert ender man opp med et ferdig spill.
 
-Koden vi skal jobbe finner du i filen [Main.kt](src/main/kotlin/org/veiset/libgdx/Main.kt).
+Koden vi skal jobbe finner du i filen [Main.kt](src/main/kotlin/no/bekk/game/Main.kt).
+
+Løsningsforslag ligger i fila [Solution.kt](src/main/kotlin/no/bekk/game/solution/Solution.kt), men bruk den med omhu!  
+Vær obs på at den inneholder løsningen på alle oppgavene, så ikke ødelegg moroa for deg selv.
 
 ## 1. Tegne en figur (spilleren) på skjermen.
 
@@ -364,7 +371,7 @@ størrelse og fart?
 #### Bytte ut firkantene med bilder
 
 Firkanter kan være litt kjedelig. Hva om man bytter ut firkantene med noen kule bilder i stedet? Her kan man se på
-eksempelkoden [MovingGraphicsModule.kt](src/main/kotlin/org/veiset/libgdx/examples/MovingGraphicModule.kt) for hvordan
+eksempelkoden [MovingGraphicModule.kt](src/main/kotlin/no/bekk/game/examples/MovingGraphicModule.kt) for hvordan
 man kan tegne grafikk på skjermen.
 
 ## 7. Åpen oppgave
