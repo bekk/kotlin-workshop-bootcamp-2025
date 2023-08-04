@@ -269,7 +269,7 @@ unngå andre firkanter som faller ned fra toppen av skjermen. Målet med oppgave
 deg litt kjent med et par viktige konsepter som du kan ta med deg inn i de litt mer kreative
 oppgavene.
 
-![Animasjon av spillet](docs/slides/bilder/game-animation.gif)
+![Animasjon av spillet](docs/images/game-animation.gif)
 
 Skjelettet av koden er allerede skrevet - og består i hovedsak av tomme metoder som
 det er opp til deg å implementere i denne delen av workshopen. Vi tar det stegvis, og når
