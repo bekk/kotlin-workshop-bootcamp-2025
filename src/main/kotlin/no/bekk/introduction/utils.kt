@@ -3,7 +3,7 @@ package no.bekk.introduction
 data class BootcampCoach(
     val name: String,
     val avdeling: Avdeling,
-    val yearsInBekk: Int,
+    val aarIBekk: Int,
 )
 enum class Avdeling {
     TEKNOLOGI, DESIGN, BMC
@@ -59,12 +59,6 @@ val preben = BootcampCoach(
 
 val morten = BootcampCoach(
     "Morten",
-    Avdeling.BMC,
-    4,
-)
-
-val vilde = BootcampCoach(
-    "Vilde",
     Avdeling.BMC,
     4,
 )

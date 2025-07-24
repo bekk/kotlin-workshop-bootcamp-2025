@@ -1,36 +1,15 @@
 package no.bekk.introduction
 
-// Oppgave 1 - Skriv om denne til en extension function
-fun getInfo(coach: BootcampCoach): String {
-    return "${coach.name} er i avdeling ${coach.avdeling} og har jobbet ${coach.yearsInBekk} år i Bekk"
-}
-
-// Oppgave 2 - Skriv om denne til en extension function
-fun hasWorkedLongerThan(coach1: BootcampCoach, coach2: BootcampCoach): Boolean {
-    return coach1.yearsInBekk > coach2.yearsInBekk
-}
-
-// Oppgave 3 - Skriv om disse til extension functions, og bruk chaining
-fun addYears(coach: BootcampCoach, years: Int): BootcampCoach {
-    return BootcampCoach(coach.name, coach.avdeling, coach.yearsInBekk + years)
-}
-
-fun withAvdeling(coach: BootcampCoach, avdeling: Avdeling): BootcampCoach {
-    return BootcampCoach(coach.name, avdeling, coach.yearsInBekk)
-}
-
 fun main() {
-    val sondre = BootcampCoach("Sondre", Avdeling.TEKNOLOGI, 2)
-    val ingrid = BootcampCoach("Ingrid", Avdeling.TEKNOLOGI, 3)
+    val bootCampCoacher = coacher2023
 
-    // Kommenter denne inn når du har gjort oppgave 1
-    // print(sondre.getInfo())
+    // TODO: Lag en extension function for `List<BootcampCoach>` som returnerer bare Coacher fra en avdeling.
 
-    // Kommenter denne inn når du har gjort oppgave 2
-    // print(ingrid.hasWorkedLongerThan(sondre))
+    // TODO: Lag en extension function for `List<BootcampCoach>` som skriver ut navn, antall år i Bekk og avdeling for alle bootcampcoachene.
 
-    // Oppgave 3 - kan du gjøre dette mer leselig ved hjelp av extension functions?
-    print(getInfo(addYears(withAvdeling(ingrid, Avdeling.BMC), 1)))
+    // TODO: Lag en extension function for `List<BootcampCoach>` som returnerer totalt antall år i Bekk for alle coachene i listen.
+
+    // TODO: Lag en extension function for `List<BootcampCoach>` som øker antall år i Bekk for alle coachene i listen med et gitt antall år.
 
     // Ferdig? Bra jobba! Se løsningsforslag i README.md og gå videre til neste 🚀
 }
