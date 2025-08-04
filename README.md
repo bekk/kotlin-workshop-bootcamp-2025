@@ -290,11 +290,13 @@ Dette skal da gjøres uten å endre på hvordan funksjonen `funkSjonalitetSomIkk
 2. Skriv om koden i funksjonen `skrivUtTallListeMedFire` slik at du ikke endrer verdiene i lista `viktigeTall` men fortsatt får skrevet ut lista med tallet 4 på slutten.
 
 
-<details><summary>Løsningsforslag til oppgave 1 🤠</summary>
+<details><summary>Løsningsforslag 🤠</summary>
+
+Løsningsforslag til oppgave 1:
 
 Linja `patrick.name = "Sondre"` er ikke lov fordi `name` er definert som en ikke-muterbar verdi med nøkkelordet `val` og kan dermed ikke endres etter at objektet er opprettet.
 
-Løsningsforslag:
+
 ```kotlin
 val patrick = Person("Patrick", 27)
 val sondre = patrick.copy(name = "Sondre")
@@ -302,14 +304,10 @@ val sondre = patrick.copy(name = "Sondre")
 println(sondre) // -> Person(name=Sondre, age=27)
 ```
 
-</details>
-
-<details><summary>Løsningsforslag til oppgave 2 🤠</summary>
-
 Koden kræsjer fordi vi legger til tallet 4 i den muterbare lista `viktigeTall` i funksjonen `skrivUtTallListeMedFire`.
 Dette fører til at koden kræsjer i funksjonen `funkSjonalitetSomIkkeLikerTalletFire`, da den funksjonen ikke krever at lista ikke kan ikkeholde tallet 4. 
 
-Løsningsforslag:
+Løsningsforslag til oppgave 2:
 
 ```kotlin
 fun skrivUtTallListeMedFire(viktigeTall: MutableList<Int>) {
