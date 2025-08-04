@@ -14,7 +14,7 @@ Kotlin har to nøkkelord for å definere variabler: `val` og `var`.
 
 Oppgaver:
 
-Åpne filen i introduction som heter [DataClass.kt](src/main/kotlin/no/bekk/introduction/Variabler.kt).
+Åpne filen i introduction som heter [Variabler.kt](src/main/kotlin/no/bekk/introduction/Variabler.kt).
 
 1. Prøv å kjøre `main`-funksjonen. Hva får du ut i konsollen?
 2. Bytt ut `var` med `val` på linje 4, og kjør `main`-funksjonen igjen. Hva skjer nå? Hvorfor er dette ikke lov?
@@ -39,20 +39,6 @@ println("Verdien til tall1 pluss 1 er: $tall2")
 val tall3 = tall2 / 2
 println("Verdien til tall1 pluss 1 delt på to er: $tall3")
 ```
-
-1. Vi får en fin utskrift av objektet vårt, i stedet for at det bare står `Konsulent@<hashkode>`.
-2. Vi får `true` når vi sammenligner to konsulenter med samme navn, i stedet for `false`.
-
-Endringen i objektutskriften er fordi `Konsulent` alle vanlige klasser (`class`) har en default implementasjon av `toString` som skriver ut klassenavnet og en hashkode.
-Dette fører til at utskriften av `println(konsulent)` blir noe sånt som `Konsulent@6d06d69c`. Instanser av `data class` derimot,
-har en implementasjon av `toString` som skriver ut alle feltene i klassen, slik at utskriften blir noe sånt som `Konsulent(name=Gaute)`.
-
-Endringen i sammenligningen er fordi vanlige klasser (`class`) har en default implementasjon av `==` (eller `equals` som det heter)
-som bare sammenligner referansene til objektene, altså om de er det samme objektet i minnet.
-`data class` derimot, har en implementasjon av `equals` som sammenligner innholdet i objektene, altså om de har samme verdi for alle feltene.
-Dette fører til at når Konsulent er en `data class` så får vi `true` dersom vi sammenligner to objekter med samme navn.
-
-Se mer: https://kotlinlang.org/docs/data-classes.html
 
 </details>
 
@@ -133,7 +119,7 @@ I kotlin så må en eksplisitt håndtere `null`-verdier, og det finnes flere må
 
 Oppgaver: 
 
-Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullability.kt).
+Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
 
 1. Kjør `main`-funksjonen. Hva skjer og hvorfor?
 2. Kommenter ut kodelinje 9 og bytt ut typen på parameteret `streng` fra `String?` til `String`. Hva skjer når du kjører `main`-funksjonen nå? Hvorfor er det slik?
@@ -172,6 +158,53 @@ fun skrivUtStringlengde(streng: String?): Int? {
 
 ## Klasser
 I Kotlin defineres klasser med `class`-nøkkelordet. En klasse kan ha egenskaper (properties) og metoder (functions).
+Egenskaper defineres med `val` eller `var`, og metoder defineres med `fun`. Her er et eksempel på en klasse:
+
+```kotlin
+class Person(val name: String, var age: Int) {
+    fun introduce() {
+      println(
+        "Hei, jeg heter $name og er $age år gammel")
+    }
+}
+```
+
+
+
+Åpne filen i introduction som heter [Klasser.kt](src/main/kotlin/no/bekk/introduction/Klasser.kt).
+
+1. Lag en klasse som heter `Coach` som har følgende egenskaper:
+   - `navn`: String
+   - `aarIBekk`: Int
+   - `favorittaktivitet`: String
+2. Lag en funksjon i `Coach`-klassen som heter `skrivUtInfo` som skriver ut navnet, antall år i Bekk og hva favorittaktivitet er deres favorittaktivitet.
+
+
+<details><summary> Løsningsforslag 🤠 </summary>
+
+Oppgave 1:
+```kotlin
+class Coach(
+    val navn: String,
+    val aarIBekk: Int,
+    val favorittaktivitet: String,
+)
+```
+
+Oppgave 2:
+```kotlin
+class Coach(
+    val navn: String,
+    val aarIBekk: Int,
+    val favorittaktivitet: String,
+){
+    fun skrivUtInfo(){
+        println("Navn: $navn, År i Bekk: $aarIBekk, Favorittaktivitet: $favorittaktivitet")
+    }
+}
+```
+
+</details>
 
 ## Dataklasser
 
