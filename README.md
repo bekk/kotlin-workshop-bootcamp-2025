@@ -6,6 +6,56 @@ Denne workshopen er delt inn i to deler: den første delen gir deg en generell i
 
 Og ikke glem, bruk coachene og kollegaene dine aktivt! Vi er her for å hjelpe 🚀
 
+## Variabler
+
+Kotlin har to nøkkelord for å definere variabler: `val` og `var`. 
+`val` brukes for å definere en variabel som ikke kan endres etter at den er opprettet, altså en konstant. 
+`var` brukes for å definere en variabel som kan endres.
+
+Oppgaver:
+
+Åpne filen i introduction som heter [DataClass.kt](src/main/kotlin/no/bekk/introduction/Variabler.kt).
+
+1. Prøv å kjøre `main`-funksjonen. Hva får du ut i konsollen?
+2. Bytt ut `var` med `val` på linje 4, og kjør `main`-funksjonen igjen. Hva skjer nå? Hvorfor er dette ikke lov?
+3. Skriv om koden slik at du fortsatt får samme utskrift som i del 1, uten å bruke `var` på linje 4.
+
+<details><summary> Løsningsforslag 🤠 </summary>
+
+1. Utskriften i konsollen skriver ut :
+```kotlin
+Verdien til tall1 er: 1
+Verdien til tall1 pluss 1 er: 2
+Verdien til tall1 pluss 1 delt på to er: 1
+```
+
+2. Koden kompilerer ikke lengre og en får en feilmelding som sier at `val` ikke kan endres. Dette er fordi `val` kan ikke defineres på ny etter at den har blitt definert.
+3. Løsningsforslag:
+```kotlin
+val tall1 = 1
+println("Verdien til tall1 er: $tall1")
+val tall2 = tall1 + 1
+println("Verdien til tall1 pluss 1 er: $tall2")
+val tall3 = tall2 / 2
+println("Verdien til tall1 pluss 1 delt på to er: $tall3")
+```
+
+1. Vi får en fin utskrift av objektet vårt, i stedet for at det bare står `Konsulent@<hashkode>`.
+2. Vi får `true` når vi sammenligner to konsulenter med samme navn, i stedet for `false`.
+
+Endringen i objektutskriften er fordi `Konsulent` alle vanlige klasser (`class`) har en default implementasjon av `toString` som skriver ut klassenavnet og en hashkode.
+Dette fører til at utskriften av `println(konsulent)` blir noe sånt som `Konsulent@6d06d69c`. Instanser av `data class` derimot,
+har en implementasjon av `toString` som skriver ut alle feltene i klassen, slik at utskriften blir noe sånt som `Konsulent(name=Gaute)`.
+
+Endringen i sammenligningen er fordi vanlige klasser (`class`) har en default implementasjon av `==` (eller `equals` som det heter)
+som bare sammenligner referansene til objektene, altså om de er det samme objektet i minnet.
+`data class` derimot, har en implementasjon av `equals` som sammenligner innholdet i objektene, altså om de har samme verdi for alle feltene.
+Dette fører til at når Konsulent er en `data class` så får vi `true` dersom vi sammenligner to objekter med samme navn.
+
+Se mer: https://kotlinlang.org/docs/data-classes.html
+
+</details>
+
 ## Data classes
 
 En `data class` er en klasse kun ment til å holde på data.
@@ -16,7 +66,7 @@ Oppgave:
 Åpne filen i introduction som heter [DataClass.kt](src/main/kotlin/no/bekk/introduction/DataClass.kt). Her ligger det en klasse som heter `Konsulent`, og en main funksjon.
 
 1. Kjør main funksjonen, og se hva som skjer.
-1. Gjør `Konsulent` om til en `data class` og kjør main funksjonen igjen. Hvilke to forskjellger ser du ser du i konsollutskriften? Hvorfor er det slik? 
+2. Gjør `Konsulent` om til en `data class` og kjør main funksjonen igjen. Hvilke to forskjellger ser du ser du i konsollutskriften? Hvorfor er det slik? 
 
 <details><summary> Løsningsforslag 🤠 </summary>
 I konsollutskriften ser vi to endringer:
