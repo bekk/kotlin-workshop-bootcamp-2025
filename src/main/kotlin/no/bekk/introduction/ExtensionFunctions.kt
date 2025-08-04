@@ -1,7 +1,7 @@
 package no.bekk.introduction
 
 fun main() {
-    val bootCampCoacher = coacher2023
+    val bootCampCoacher = coacher2025
 
     // TODO: Lag en extension function for `List<BootcampCoach>` som returnerer bare Coacher fra en avdeling.
 

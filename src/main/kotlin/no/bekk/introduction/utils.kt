@@ -63,4 +63,4 @@ val morten = BootcampCoach(
     4,
 )
 
-val coacher2023 = listOf<BootcampCoach>(ingrid, kristian, johan, ida, gabriel, ragnhild, aurora, preben, morten, ida)
+val coacher2025 = listOf<BootcampCoach>(ingrid, kristian, johan, ida, gabriel, ragnhild, aurora, preben, morten, ida)
