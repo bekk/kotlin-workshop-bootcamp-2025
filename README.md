@@ -100,9 +100,82 @@ fun addWithDefault(a: Int, b: Int = 0) = a + b
 
 </details>
 
-## Data classes
+## Nullabillity
+I Kotlin er det en viktig forskjell på typer som kan være `null` og typer som ikke kan være `null`.
+Typer som kan være `null` har et `?`-tegn etter typen, f.eks. `String?` er en type som kan være `null`, mens `String` er en type som ikke kan være `null`.
+Dette er en viktig forskjell fra Java, hvor alle typer kan være `null` med mindre de er primitive typer som `Int`, `Boolean`, etc.
 
-En `data class` er en klasse kun ment til å holde på data.
+I kotlin så må en eksplisitt håndtere `null`-verdier, og det finnes flere måter å gjøre dette på:
+1. **Null-sjekk**: Du kan sjekke om en verdi er `null` ved å bruke `if`-setninger.
+   ```kotlin
+   val navn: String? = null
+   if (navn != null) {
+       println(navn.length)
+   }
+   ```
+2. **Safe call operator**: Du kan bruke `?.` for å kalle en metode på en verdi som kan være `null`. Hvis verdien er `null`, vil hele uttrykket returnere `null` uten å kaste en feil.
+   ```kotlin
+    val navn: String? = null
+    println(navn?.length) // Dette vil skrive ut null uten å kaste en feil
+    ```
+
+3. **Elvis-operator**: Du kan bruke `?:` for å gi en defaultverdi hvis verdien er `null`.
+    ```kotlin
+    val navn: String? = null
+    println(navn?.length ?: 0) // Dette vil skrive ut 0 hvis navn er null
+    ```
+
+4. **!!-operator**: Du kan bruke `!!` for å kaste en `NullPointerException` hvis verdien er `null`. Dette bør brukes med forsiktighet, da det kan føre til krasj i programmet.
+    ```kotlin
+    val navn: String? = null
+    println(navn!!.length) // Dette vil kaste en NullPointerException hvis navn er null
+    ```
+
+Oppgaver: 
+
+Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullability.kt).
+
+1. Kjør `main`-funksjonen. Hva skjer og hvorfor?
+2. Kommenter ut kodelinje 9 og bytt ut typen på parameteret `streng` fra `String?` til `String`. Hva skjer når du kjører `main`-funksjonen nå? Hvorfor er det slik?
+3. Skriv en funksjon som tar inn et parameter av typen `String?` og returnerer lengden dersom strengen ikke er null. Dersom den er null, skal funksjonen returnere `null`.
+4. Skriv en funksjon som tar inn et parameter av typen `String?` og returnerer lengden dersom strengen ikke er null. Dersom den er null, skal funksjonen returnere tallet 0.
+
+<details><summary> Løsningsforslag 🤠 </summary>
+
+Oppgave 1:
+Når du kjører `main`-funksjonen, vil den kaste en `NullPointerException` fordi vi prøver å kalle `length` på en `null`-verdi.
+
+
+Oppgave 2:
+Når du kommenterer ut kodelinje 9 og endrer typen på parameteret `streng` fra `String?` til `String`, vil koden kompilere og skrive ut 
+```kotlin
+Lengden på streng1 er: 23
+```
+
+Oppgave 3:
+```kotlin
+fun skrivUtStringlengde(streng: String?): Int? {
+    return streng?.length
+}
+```
+
+
+Oppgave 4:
+```kotlin
+fun skrivUtStringlengde(streng: String?): Int? {
+  return streng?.length ?: 0
+}
+```
+
+</details>
+
+
+## Klasser
+I Kotlin defineres klasser med `class`-nøkkelordet. En klasse kan ha egenskaper (properties) og metoder (functions).
+
+## Dataklasser
+
+En `data class` er en klasse kun ment til å representere data og har en del funksjonalitet som er nyttig for å jobbe med data.
 Når du definerer en dataklasse får du en del funksjonalitet gratis, som f.eks. `toString`, `equals`, `hashCode` og `copy`.
 
 Oppgave:
