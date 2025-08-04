@@ -5,9 +5,9 @@ class Konsulent(
 )
 
 fun main() {
-    val gaute = Konsulent("Gaute")
-    println(gaute)
+    val patrick = Konsulent("Patrick")
+    println(patrick)
 
-    val gaute2 = Konsulent("Gaute")
-    println("gaute1 == gaute2: ${gaute == gaute2}")
+    val patrick2 = Konsulent("Patrick")
+    println("patrick == patrick2: ${patrick == patrick2}")
 }

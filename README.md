@@ -54,7 +54,9 @@ fun add(a: Int, b: Int): Int {
 
 Man kan også gi et parameter en defaultverdi ved å skrive `= <verdi>` etter typen som dette: `a: Int = 0`.
 
-Oppgavene ligger i [Funksjoner.kt](src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
+Oppgaver:
+
+Åpne filen i introduction som heter [Funksjoner.kt](src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
 
 1. Lag en funksjon som heter `add` som tar to heltall som parametere og returnerer summen av dem.
 2. Lag en ny funksjon som heter `addWithDefault` som tar to heltall som parametere, men det andre parameteret skal ha en defaultverdi på 0. Denne funksjonen skal returnere summen av de to tallene.
@@ -169,7 +171,7 @@ class Person(val name: String, var age: Int) {
 }
 ```
 
-
+Oppgaver:
 
 Åpne filen i introduction som heter [Klasser.kt](src/main/kotlin/no/bekk/introduction/Klasser.kt).
 
@@ -210,13 +212,14 @@ class Coach(
 
 En `data class` er en klasse kun ment til å representere data og har en del funksjonalitet som er nyttig for å jobbe med data.
 Når du definerer en dataklasse får du en del funksjonalitet gratis, som f.eks. `toString`, `equals`, `hashCode` og `copy`.
+Dette gjør at sammenligning av objekter blir enklere, og at du kan lage kopier av objekter med endrede verdier uten å måtte skrive mye kode selv.
 
-Oppgave:
+Oppgaver:
 
 Åpne filen i introduction som heter [DataClass.kt](src/main/kotlin/no/bekk/introduction/DataClass.kt). Her ligger det en klasse som heter `Konsulent`, og en main funksjon.
 
 1. Kjør main funksjonen, og se hva som skjer.
-2. Gjør `Konsulent` om til en `data class` og kjør main funksjonen igjen. Hvilke to forskjellger ser du ser du i konsollutskriften? Hvorfor er det slik? 
+2. Gjør `Konsulent` om til en `data class` og kjør main funksjonen igjen. Hvilke to forskjeller ser du ser du i konsollutskriften? Hvorfor er det slik? 
 
 <details><summary> Løsningsforslag 🤠 </summary>
 I konsollutskriften ser vi to endringer:
@@ -226,7 +229,7 @@ I konsollutskriften ser vi to endringer:
 
 Endringen i objektutskriften er fordi `Konsulent` alle vanlige klasser (`class`) har en default implementasjon av `toString` som skriver ut klassenavnet og en hashkode.
 Dette fører til at utskriften av `println(konsulent)` blir noe sånt som `Konsulent@6d06d69c`. Instanser av `data class` derimot, 
-har en implementasjon av `toString` som skriver ut alle feltene i klassen, slik at utskriften blir noe sånt som `Konsulent(name=Gaute)`.
+har en implementasjon av `toString` som skriver ut alle feltene i klassen, slik at utskriften blir noe sånt som `Konsulent(name=Patrick)`.
 
 Endringen i sammenligningen er fordi vanlige klasser (`class`) har en default implementasjon av `==` (eller `equals` som det heter) 
 som bare sammenligner referansene til objektene, altså om de er det samme objektet i minnet.
@@ -264,17 +267,18 @@ Egendefinerte dataklasser har også støtte for dette gjennom `copy`-funksjonen 
 Denne gir deg muligheten til å lage en kopi av et objekt med noen av feltene endret, mens de andre feltene forblir uendret.
 
 ```kotlin
-val gaute = Person(name = "Gaute", age = 26)
+val patrick = Person(name = "Patrick", age = 27)
 
-val eldreGaute = gaute.copy(age = 27) // Dette lager en kopi av `gaute` som er 27 år gammel, men beholder navnet "Gaute".
+val eldrePatrick = patrick.copy(age = 28) // Dette lager en kopi av `patrick` som er 28 år gammel, men beholder navnet "Patrick".
 
 ```
+Oppgaver:
 
-Oppgavene løses i fila [Mutability.kt](src/main/kotlin/no/bekk/introduction/Mutability.kt)
+Åpne filen i introduction som heter [Mutability.kt](src/main/kotlin/no/bekk/introduction/Mutability.kt)
 
 **Oppgave 1:**
 
-1. Kommenter inn linjen med `gaute.name`, og undersøk feilen du får. Hvorfor er ikke dette lov? 
+1. Kommenter inn linjen med `patrick.name`, og undersøk feilen du får. Hvorfor er ikke dette lov? 
 2. Hvordan kan du opprette et nytt person-objekt med samme verdi for `age` men med et annet navn?"
 
 **Oppgave 2:**
@@ -288,14 +292,14 @@ Dette skal da gjøres uten å endre på hvordan funksjonen `funkSjonalitetSomIkk
 
 <details><summary>Løsningsforslag til oppgave 1 🤠</summary>
 
-Linja `gaute.name = "Sondre"` er ikke lov fordi `name` er definert som en ikke-muterbar verdi med nøkkelordet `val` og kan dermed ikke endres etter at objektet er opprettet.
+Linja `patrick.name = "Sondre"` er ikke lov fordi `name` er definert som en ikke-muterbar verdi med nøkkelordet `val` og kan dermed ikke endres etter at objektet er opprettet.
 
 Løsningsforslag:
 ```kotlin
-val gaute = Person("Gaute", 26)
-val sondre = gaute.copy(name = "Sondre")
+val patrick = Person("Patrick", 27)
+val sondre = patrick.copy(name = "Sondre")
 
-println(sondre) // -> Person(name=Sondre, age=26)
+println(sondre) // -> Person(name=Sondre, age=27)
 ```
 
 </details>
