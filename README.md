@@ -401,23 +401,23 @@ Oppgave:
 
 Åpne filen som heter [HighOrderFunction.kt](src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
 
-1. Bruk `coacher2023`-listen, og bruk lambdafunksjon(er) for å finne ut hvor mange år alle coachene i 2023 har jobbet i Bekk.
-2. Bruk `coacher2023`-listen, og lag en liste for coachene som er i teknologi-avdelingen.
-3. Bruk `coacher2023`-listen, og skriv kode for å lage en kopi av lista hvor Johan er i BMC-avdelingen og Ragnhild er i Design-avdelingen.
+1. Bruk `coacher2025`-listen, og bruk lambdafunksjon(er) for å finne ut hvor mange år alle coachene i 2025 har jobbet i Bekk.
+2. Bruk `coacher2025`-listen, og lag en liste for coachene som er i teknologi-avdelingen.
+3. Bruk `coacher2025`-listen, og skriv kode for å lage en kopi av lista hvor Frikk er i BMC-avdelingen og Sivert er i Design-avdelingen.
 
 Bruk main-funksjonen til å sjekke at du får riktig resultat.
 
 <details><summary> Løsningsforslag 🤠 </summary>
 
 ```kotlin
-val antallAarIBekk = coacher2023.map { it.aarIBekk }.reduce { aarIBekk1, aarIBekk2 -> aarIBekk1 + aarIBekk2 }
+val antallAarIBekk = coacher2025.map { it.aarIBekk }.reduce { aarIBekk1, aarIBekk2 -> aarIBekk1 + aarIBekk2 }
 
-val teknologiCoacher = coacher2023.filter { it.avdeling == Avdeling.TEKNOLOGI }
+val teknologiCoacher = coacher2025.filter { it.avdeling == Avdeling.TEKNOLOGI }
 
-val endredeCoacher = coacher2023.map { coach ->
+val endredeCoacher = coacher2025.map { coach ->
     when (coach.name) {
-        "Johan" -> coach.copy(avdeling = Avdeling.BMC)
-        "Ragnhild" -> coach.copy(avdeling = Avdeling.DESIGN)
+        "Frikk" -> coach.copy(avdeling = Avdeling.BMC)
+        "Sivert" -> coach.copy(avdeling = Avdeling.DESIGN)
         else -> coach
     }
 }
