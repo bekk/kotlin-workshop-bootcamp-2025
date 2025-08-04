@@ -56,6 +56,50 @@ Se mer: https://kotlinlang.org/docs/data-classes.html
 
 </details>
 
+## Funksjoner
+
+Funksjoner i kotlin defineres med `fun`-nøkkelordet, og kan ha parametere og returverdier.
+
+```kotlin
+fun add(a: Int, b: Int): Int {
+    return a + b
+}
+```
+
+Man kan også gi et parameter en defaultverdi ved å skrive `= <verdi>` etter typen som dette: `a: Int = 0`.
+
+Oppgavene ligger i [Funksjoner.kt](src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
+
+1. Lag en funksjon som heter `add` som tar to heltall som parametere og returnerer summen av dem.
+2. Lag en ny funksjon som heter `addWithDefault` som tar to heltall som parametere, men det andre parameteret skal ha en defaultverdi på 0. Denne funksjonen skal returnere summen av de to tallene.
+3. Skriv om funksjonen `addWithDefault` slik at du ikke trenger å bruke `return`-nøkkelordet eller krøllparenteser. Dette kan du gjøre ved å bruke en [single-expression function](https://kotlinlang.org/docs/functions.html#single-expression-functions).
+
+<details><summary> Løsningsforslag 🤠 </summary>
+
+Løsningsforslag til oppgave 1:
+
+```kotlin
+fun add(a: Int, b: Int): Int {
+    return a + b
+}
+```
+
+Løsningsforslag til oppgave 2:
+
+```kotlin
+fun addWithDefault(a: Int, b: Int = 0): Int {
+  return a + b
+}
+```
+
+Løsningsforslag til oppgave 3:
+
+```kotlin
+fun addWithDefault(a: Int, b: Int = 0) = a + b
+```
+
+</details>
+
 ## Data classes
 
 En `data class` er en klasse kun ment til å holde på data.
@@ -163,45 +207,6 @@ fun skrivUtTallListeMedFire(viktigeTall: MutableList<Int>) {
   println(viktigeTallMedFire) // -> [1, 2, 3, 4]
 }
 ```
-
-</details>
-
-## Functions
-
-Funksjoner i kotlin defineres med `fun`-nøkkelordet, og kan ha parametere og returverdier.
-
-```kotlin
-fun add(a: Int, b: Int): Int {
-    return a + b
-}
-```
-
-Man kan også gi et parameter en defaultverdi ved å skrive `= <verdi>` etter typen som dette: `a: Int = 0`.
-
-Oppgavene ligger i [Funksjoner.kt](src/main/kotlin/no/bekk/introduction/Funksjoner.kt) 
-
-1. Legg inn et parameter i  funksjonen `skrivUtIntroduksjonMedHobby` slik at en kan det printes ut en valgfri hobby.
-2. Endre hobby-parameteret slik at hobbyen 'kode kotlin' blir brukt dersom ingen annen hobby er oppgitt."
-
-<details><summary> Løsningsforslag 🤠 </summary>
-
-Løsningsforslag til oppgave 1:
-
-```kotlin
-fun skrivUtIntroduksjonMedHobby(hobby: String) {
-  println("Hei! Mitt navn er $name. Jeg er glad i å $hobby")
-}
-```
-
-Løsningsforslag til oppgave 2:
-
-```kotlin
-fun skrivUtIntroduksjonMedHobby(hobby: String = "kode kotlin") {
-  println("Hei! Mitt navn er $name. Jeg er glad i å $hobby")
-}
-```
-
-_Løsningen bruker [`string templates`](https://kotlinlang.org/docs/java-to-kotlin-idioms-strings.html#concatenate-strings) for å sette sammen meldingen uten å bruke `+`_
 
 </details>
 

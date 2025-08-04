@@ -1,12 +1,10 @@
 package no.bekk.introduction
 
-data class BekkAnsatt(val name: String){
 
-    fun skrivUtIntroduksjonMedHobby() {
-        println("Hei! Mitt navn er $name. Jeg er glad i å kode kotlin")
-    }
-}
 fun main() {
-    val ingrid = BekkAnsatt("Ingrid")
-    ingrid.skrivUtIntroduksjonMedHobby()
+    val tall1 = 5
+    val tall2 = 10
+
+    //val tall3 = add(tall1, tall2)
+    //println("Summen av $tall1 og $tall2 er: $tall3")
 }
