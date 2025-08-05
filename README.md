@@ -124,7 +124,7 @@ Oppgaver:
 Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
 
 1. Kjør `main`-funksjonen. Hva skjer og hvorfor?
-2. Kommenter ut kodelinje 9 og bytt ut typen på parameteret `streng` fra `String?` til `String`. Hva skjer når du kjører `main`-funksjonen nå? Hvorfor er det slik?
+2. Kommenter ut kodelinje 8 og bytt ut typen på parameteret `streng` fra `String?` til `String`. Hva skjer når du kjører `main`-funksjonen nå? Hvorfor må vi kommentere ut kodelinje 8?
 3. Skriv en funksjon som tar inn et parameter av typen `String?` og returnerer lengden dersom strengen ikke er null. Dersom den er null, skal funksjonen returnere `null`.
 4. Skriv en funksjon som tar inn et parameter av typen `String?` og returnerer lengden dersom strengen ikke er null. Dersom den er null, skal funksjonen returnere tallet 0.
 
@@ -135,10 +135,12 @@ Når du kjører `main`-funksjonen, vil den kaste en `NullPointerException` fordi
 
 
 Oppgave 2:
-Når du kommenterer ut kodelinje 9 og endrer typen på parameteret `streng` fra `String?` til `String`, vil koden kompilere og skrive ut 
+Når du kommenterer ut kodelinje 8 og endrer typen på parameteret `streng` fra `String?` til `String`, vil koden kompilere og skrive ut 
 ```kotlin
 Lengden på streng1 er: 23
 ```
+
+Vi må kommentere ut kodelinje 8 fordi `String`-typen ikke kan være `null`, og vi prøver å kalle `length` på en `null`-verdi.
 
 Oppgave 3:
 ```kotlin
