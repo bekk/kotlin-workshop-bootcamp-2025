@@ -1,4 +1,4 @@
-# Lage ditt første spill med LibGDX og kotlin
+# Velkommen til Kotlin-workshop!
 
 Du kan finne en presentasjonen som hører til workshopen under [docs](docs).
 
