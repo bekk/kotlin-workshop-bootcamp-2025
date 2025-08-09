@@ -53,7 +53,7 @@ dependencies {
   implementation("com.badlogicgames.gdx:gdx-box2d-platform:${project.property("gdxVersion")}:natives-desktop")
   implementation("com.badlogicgames.gdx:gdx-freetype-platform:${project.property("gdxVersion")}:natives-desktop")
   implementation("com.badlogicgames.gdx:gdx-platform:${project.property("gdxVersion")}:natives-desktop")
-  implementation(project(":core"))
+  implementation(project(":kordle:core"))
 
   if (project.property("enableGraalNative") == "true") {
     implementation("io.github.berstanio:gdx-svmhelper-backend-lwjgl3:${project.property("graalHelperVersion")}")

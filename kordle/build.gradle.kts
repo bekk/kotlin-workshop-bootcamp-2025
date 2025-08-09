@@ -26,6 +26,13 @@ allprojects {
   }
 }
 
+plugins {
+    kotlin("plugin.spring") version "2.1.0"
+    kotlin("plugin.serialization") version "2.1.0"
+    id("org.springframework.boot") version "3.5.3"
+    id("io.spring.dependency-management") version "1.1.7"
+}
+
 configure(subprojects) {
   apply(plugin = "java-library")
   apply(plugin = "kotlin")
@@ -37,10 +44,10 @@ configure(subprojects) {
   // From https://lyze.dev/2021/04/29/libGDX-Internal-Assets-List/
   // The article can be helpful when using assets.txt in your project.
   tasks.register("generateAssetList") {
-    inputs.dir("${project.rootDir}/assets/")
+    inputs.dir("${rootDir}/assets/")
     doLast {
       // projectFolder/assets
-      val assetsFolder = File("${project.rootDir}/assets/")
+      val assetsFolder = File("${rootDir}/assets/")
       // projectFolder/assets/assets.txt
       val assetsFile = File(assetsFolder, "assets.txt")
       // delete that file in case we've already created it

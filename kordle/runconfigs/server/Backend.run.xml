@@ -1,8 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Backend" type="JetRunConfigurationType">
     <option name="MAIN_CLASS_NAME" value="no.bekk.kordle.server.ServerApplicationKt" />
-    <module name="kordle.server.main" />
+    <module name="kotlin-ws-bc.kordle.server.main" />
     <shortenClasspath name="NONE" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/kordle" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>
