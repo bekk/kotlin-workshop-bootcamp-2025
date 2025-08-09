@@ -1,4 +1,4 @@
-# Oppgave 2: Gjetting og buisness logic
+# Oppgave 2: Gjetting og foretningslogikk
 
 Så langt i oppgavene har vi laget en serverapplikasjon som kan hente ut en tilfeldig oppgave.
 Dessverre kan vi ende ikke utføre gjett på oppgaven, da vi ikke har laget noen logikk for å håndtere gjetting 😱
