@@ -1,0 +1,30 @@
+### Hello World API
+GET localhost:8080/hello
+
+### Hent en tilfeldig oppgave fra backenden
+GET localhost:8080/hentTilfeldigOppgave
+
+### Legg til et ord i databasen
+POST localhost:8080/leggTilOrd
+Content-Type: application/json
+
+{
+  "ord": "morsom"
+}
+
+### Gjett ord
+POST localhost:8080/gjettOrd
+Content-Type: application/json
+
+{
+  "oppgaveId": 1,
+  "ordGjett": "test"
+}
+
+### Hent Fasit
+POST localhost:8080/hentFasit
+Content-Type: application/json
+
+{
+  "oppgaveId": 300
+}

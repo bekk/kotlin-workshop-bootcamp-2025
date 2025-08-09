@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Backend" type="JetRunConfigurationType">
+    <option name="MAIN_CLASS_NAME" value="no.bekk.kordle.server.ServerApplicationKt" />
+    <module name="kordle.server.main" />
+    <shortenClasspath name="NONE" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
