@@ -1,7 +1,6 @@
 package no.bekk.kordle.server.controller
 
 import no.bekk.kordle.server.exceptions.OppgavenEksistererIkkeIDatabasenException
-import no.bekk.kordle.server.exceptions.OrdetEksistererAlleredeIDatabasenException
 import no.bekk.kordle.server.exceptions.OrdetHarUgyldigLengdeException
 import no.bekk.kordle.server.service.OppgaveService
 import no.bekk.kordle.server.service.OrdValidatorService
@@ -36,7 +35,15 @@ class OppgaveController(
     }
 
     @PostMapping("/gjettOrd")
-    fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): GjettResponse {
+    fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
+        val gjettetOrd = gjettOrdRequest.ordGjett
+        val oppgaveId = gjettOrdRequest.oppgaveId
+        val erGjettetOrdGyldig = ordValidatorService.isValid(gjettetOrd)
+        if (!erGjettetOrdGyldig) {
+            return ResponseEntity
+                .badRequest()
+                .body("Ordet '${gjettetOrd}' er ikke i ordlista.")
+        }
         val bokstavTreff = oppgaveService.gjettOrd(
             oppgaveId = gjettOrdRequest.oppgaveId,
             ordGjettet = gjettOrdRequest.ordGjett
@@ -45,7 +52,9 @@ class OppgaveController(
             oppgaveId = gjettOrdRequest.oppgaveId,
             alleBokstavtreff = bokstavTreff
         )
-        return gjettResponse
+        return ResponseEntity
+            .ok()
+            .body(gjettResponse)
     }
 
 //    @PostMapping("/gjettOrd")
