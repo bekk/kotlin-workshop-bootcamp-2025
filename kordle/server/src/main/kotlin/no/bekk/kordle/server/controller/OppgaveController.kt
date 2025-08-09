@@ -35,25 +35,6 @@ class OppgaveController(
         return oppgaveService.hentTilfeldigOppgave().tilOppgaveResponse()
     }
 
-    @PostMapping("/leggTilOrd")
-    fun leggTilOrd(@RequestBody leggTilOrdRequest: LeggTilOrdRequest): ResponseEntity<*> {
-        try {
-            val ordSomSkalLeggesTil = leggTilOrdRequest.ord
-            val ordSomBleLagtTil = oppgaveService.leggTilOrd(ordSomSkalLeggesTil)
-            return ResponseEntity.ok().body<OppgaveResponse>(ordSomBleLagtTil)
-
-        } catch (exception: RuntimeException) {
-            val statusKodeSomSkalReturneres = when (exception) {
-                is OrdetEksistererAlleredeIDatabasenException -> HttpStatus.CONFLICT
-                is OrdetHarUgyldigLengdeException -> HttpStatus.BAD_REQUEST
-                else -> HttpStatus.INTERNAL_SERVER_ERROR
-            }
-            return ResponseEntity
-                .status(statusKodeSomSkalReturneres)
-                .body(exception.message)
-        }
-    }
-
     @PostMapping("/gjettOrd")
     fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): GjettResponse {
         val bokstavTreff = oppgaveService.gjettOrd(

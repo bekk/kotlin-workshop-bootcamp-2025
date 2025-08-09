@@ -29,47 +29,6 @@ class OppgaveRepository(
         )
     }
 
-    /**
-     * Legger til et ord som en oppgave i databasen og returnerer ID-en til den nye oppgaven som blir laget.
-     * @param ord Ordet til oppgaven som skal legges til.
-     * @param lengde Lengden på ordet til oppgaven som skal legges til.
-     * @return ID-en til den nye oppgaven som ble lagt til i databasen.
-     */
-    fun leggTilOppgave(ord: String, lengde: Int): Int {
-        val keyHolder: KeyHolder = GeneratedKeyHolder()
-        jdbcTemplate.update(
-            """INSERT INTO OPPGAVE (ord, lengde)
-                |VALUES (:ord, :lengde)
-            """.trimMargin(),
-            MapSqlParameterSource(
-                mapOf(
-                    "ord" to ord,
-                    "lengde" to lengde,
-                )
-            ),
-            keyHolder
-        )
-        return (keyHolder.key as Long).toInt()
-    }
-
-    fun eksistererOrdIDatabasen(ord: String): Int? {
-        return jdbcTemplate.queryForObject(
-            """SELECT CASE WHEN
-                |EXISTS(SELECT ord FROM OPPGAVE WHERE ord=:ord)
-                |THEN 1
-                |ELSE 0
-                |END AS ordEksisterer
-                |FROM dual;
-            """.trimMargin(),
-            MapSqlParameterSource(
-                mapOf(
-                    "ord" to ord,
-                )
-            ),
-            DataClassRowMapper(Int::class.java)
-        )
-    }
-
     fun hentOppgave(oppgaveId: Int): Oppgave {
         return jdbcTemplate.query(
             """

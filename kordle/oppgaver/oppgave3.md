@@ -1,5 +1,5 @@
-# Oppgave 3: HTTP Statuskoder
+# Oppgave 3: HTTP Statuskoder og validering
 
-En viktig del av API-utvikling er å håndtere HTTP-statuskoder riktig. Dette gir klienten informasjon om hva som skjedde
-med
-forespørselen. 
+Per nå returnerer vi alltid en av to 
+
+## Oppgave 3.1 : 
