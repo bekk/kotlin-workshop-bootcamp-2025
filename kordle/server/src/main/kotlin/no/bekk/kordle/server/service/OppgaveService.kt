@@ -1,8 +1,7 @@
 package no.bekk.kordle.server.service
 
+import no.bekk.kordle.server.exceptions.GjettetHarUgyldigLengdeException
 import no.bekk.kordle.server.exceptions.OppgavenEksistererIkkeIDatabasenException
-import no.bekk.kordle.server.exceptions.OrdetEksistererAlleredeIDatabasenException
-import no.bekk.kordle.server.exceptions.OrdetHarUgyldigLengdeException
 import no.bekk.kordle.server.repository.OppgaveRepository
 import no.bekk.kordle.shared.dto.BokstavTreff
 import no.bekk.kordle.shared.dto.HentFasitResponse
@@ -31,7 +30,7 @@ class OppgaveService(
             throw OppgavenEksistererIkkeIDatabasenException("Oppgaven med ID ${oppgaveId} finnes ikke.")
         }
         if (ordGjettet.length != oppgaveGjettetPaa.ord.length) {
-            throw OrdetHarUgyldigLengdeException("Gjettet '${ordGjettet}' er feil lengde for oppgaven. Oppgaven har lengde ${oppgaveGjettetPaa.ord.length} tegn.")
+            throw GjettetHarUgyldigLengdeException("Gjettet '${ordGjettet}' er feil lengde for oppgaven. Oppgaven har lengde ${oppgaveGjettetPaa.ord.length} tegn.")
         }
         val bokstavTreff = sjekkBokstavTreff(
             ordIOppgave = oppgaveGjettetPaa.ord,

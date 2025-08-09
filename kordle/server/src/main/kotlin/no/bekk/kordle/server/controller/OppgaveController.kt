@@ -1,7 +1,6 @@
 package no.bekk.kordle.server.controller
 
 import no.bekk.kordle.server.exceptions.OppgavenEksistererIkkeIDatabasenException
-import no.bekk.kordle.server.exceptions.OrdetHarUgyldigLengdeException
 import no.bekk.kordle.server.service.OppgaveService
 import no.bekk.kordle.server.service.OrdValidatorService
 import no.bekk.kordle.shared.dto.*

@@ -74,3 +74,20 @@ fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
 ```
 </details>
 
+## Oppgave 3.2: Custom exceptions og HTTP statuskoder
+Validering er en viktig del av enhver applikasjon, og det er ofte nyttig å kunne håndtere feil på en strukturert måte.
+Slik validering blir ofte utført på forettninglogikknivået (service-laget), da det kan eksistere domene-spesifikke regler som må overholdes.
+La oss utvide vår applikasjon til å håndtere slike domene-spesifikke feil ved å bruke custom exceptions. 
+Et eksempel på en slik exception kan være `GjettetErIkkeIOrdlistaException` i fila [exceptions.kt](../server/src/main/kotlin/no/bekk/kordle/server/exceptions/exceptions.kt),
+som kan kastes dersom et ord som ikke er i ordlista blir gjettet.
+
+1. Flytt valideringslogikken for å sjekke om et ord eksisterer fra `OppgaveController.kt` til `OppgaveService.kt`.
+   - Hvis et ord ikke er gyldig, skal `OppgaveService` kaste en `GjettetErIkkeIOrdlistaException`.
+   - Hvis gjettingen er korrekt, skal funksjonen returnere en `GjettResponse`.
+
+2. Håndter den kastede feilen `GjettetErIkkeIOrdlistaException` i `OppgaveController.kt` ved hjelp av en `try-catch`-block (kan leses om [her](https://kotlinlang.org/docs/exceptions.html)).
+   - Når denne exceptionen kastes, skal controlleren returnere en `ResponseEntity` med statuskoden 400 Bad Request og en passende feilmelding.
+
+3. Legg til ekstra validering i `OppgaveService.kt` for å sjekke om `oppgaveId` er gyldig.
+   - Hvis `oppgaveId` ikke er gyldig, skal `OppgaveService` kaste en `OppgavenEksistererIkkeIDatabasenException`.
+   - Håndter denne exceptionen i `OppgaveController.kt` på samme måte som for `GjettetErIkkeIOrdlistaException
