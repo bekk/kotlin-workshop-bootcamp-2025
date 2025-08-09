@@ -45,8 +45,8 @@ class OppgaveController(
                 .body("Ordet '${gjettetOrd}' er ikke i ordlista.")
         }
         val bokstavTreff = oppgaveService.gjettOrd(
-            oppgaveId = gjettOrdRequest.oppgaveId,
-            ordGjettet = gjettOrdRequest.ordGjett
+            oppgaveId = oppgaveId,
+            ordGjettet = gjettetOrd
         )
         val gjettResponse = GjettResponse(
             oppgaveId = gjettOrdRequest.oppgaveId,
