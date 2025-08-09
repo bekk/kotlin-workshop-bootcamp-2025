@@ -14,7 +14,7 @@ Kotlin har to nøkkelord for å definere variabler: `val` og `var`.
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Variabler.kt](src/main/kotlin/no/bekk/introduction/Variabler.kt).
+Åpne filen i introduction som heter [Variabler.kt](introduction/src/main/kotlin/no/bekk/introduction/Variabler.kt).
 
 1. Prøv å kjøre `main`-funksjonen. Hva får du ut i konsollen?
 2. Bytt ut `var` med `val` på linje 4, og kjør `main`-funksjonen igjen. Hva skjer nå? Hvorfor er dette ikke lov?
@@ -56,7 +56,7 @@ Man kan også gi et parameter en defaultverdi ved å skrive `= <verdi>` etter ty
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Funksjoner.kt](src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
+Åpne filen i introduction som heter [Funksjoner.kt](introduction/src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
 
 1. Lag en funksjon som heter `add` som tar to heltall som parametere og returnerer summen av dem.
 2. Lag en ny funksjon som heter `addWithDefault` som tar to heltall som parametere, men det andre parameteret skal ha en defaultverdi på 0. Denne funksjonen skal returnere summen av de to tallene.
@@ -121,7 +121,7 @@ I kotlin så må en eksplisitt håndtere `null`-verdier, og det finnes flere må
 
 Oppgaver: 
 
-Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
+Åpne filen i introduction som heter [Nullability.kt](introduction/src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
 
 1. Kjør `main`-funksjonen. Hva skjer og hvorfor?
 2. Kommenter ut kodelinje 8 og bytt ut typen på parameteret `streng` fra `String?` til `String`. Hva skjer når du kjører `main`-funksjonen nå? Hvorfor må vi kommentere ut kodelinje 8?
@@ -175,7 +175,7 @@ class Person(val name: String, var age: Int) {
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Klasser.kt](src/main/kotlin/no/bekk/introduction/Klasser.kt).
+Åpne filen i introduction som heter [Klasser.kt](introduction/src/main/kotlin/no/bekk/introduction/Klasser.kt).
 
 1. Lag en klasse som heter `Coach` som har følgende egenskaper:
    - `navn`: String
@@ -218,7 +218,7 @@ Dette gjør at sammenligning av objekter blir enklere, og at du kan lage kopier 
 
 Oppgaver:
 
-Åpne filen i introduction som heter [DataClass.kt](src/main/kotlin/no/bekk/introduction/DataClass.kt). Her ligger det en klasse som heter `Konsulent`, og en main funksjon.
+Åpne filen i introduction som heter [DataClass.kt](introduction/src/main/kotlin/no/bekk/introduction/DataClass.kt). Her ligger det en klasse som heter `Konsulent`, og en main funksjon.
 
 1. Kjør main funksjonen, og se hva som skjer.
 2. Gjør `Konsulent` om til en `data class` og kjør main funksjonen igjen. Hvilke to forskjeller ser du ser du i konsollutskriften? Hvorfor er det slik? 
@@ -276,7 +276,7 @@ val eldrePatrick = patrick.copy(age = 28) // Dette lager en kopi av `patrick` so
 ```
 Oppgaver:
 
-Åpne filen i introduction som heter [Mutability.kt](src/main/kotlin/no/bekk/introduction/Mutability.kt)
+Åpne filen i introduction som heter [Mutability.kt](introduction/src/main/kotlin/no/bekk/introduction/Mutability.kt)
 
 **Oppgave 1:**
 
@@ -399,7 +399,7 @@ listOf(-5,-2, 0, 2, 5)
 
 Oppgave:
 
-Åpne filen som heter [HighOrderFunction.kt](src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
+Åpne filen som heter [HighOrderFunction.kt](introduction/src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
 
 1. Bruk `coacher2025`-listen, og bruk lambdafunksjon(er) for å finne ut hvor mange år alle coachene i 2025 har jobbet i Bekk.
 2. Bruk `coacher2025`-listen, og lag en liste for coachene som er i teknologi-avdelingen.
@@ -473,7 +473,7 @@ listOf(-5,-2, 0, 2, 5)
 ```
 
 Oppgave:
-Oppgavene ligger i fila [ExtensionFunctions.kt](src/main/kotlin/no/bekk/introduction/ExtensionFunctions.kt).
+Oppgavene ligger i fila [ExtensionFunctions.kt](introduction/src/main/kotlin/no/bekk/introduction/ExtensionFunctions.kt).
 
 1. Lag en extension function for `List<BootcampCoach>` som returnerer bare Coacher fra en avdeling.
 2. Lag en extension function for `List<BootcampCoach>` som skriver ut navn, antall år i Bekk og avdeling for alle bootcampcoachene. 
@@ -516,141 +516,6 @@ Du kan lese mer om extension functions i [den offisielle Kotlin-dokumentasjonen]
 
 </details>
 
-# Lage ditt første spill med LibGDX og Kotlin
-
-Gratulerer med vel overstått introduksjon til Kotlin! 🎉
-
-Nå skal vi lage et spill! Du skal styre en firkant på skjermen. Firkanten skal
-unngå andre firkanter som faller ned fra toppen av skjermen. Målet med oppgaven er å gjøre
-deg litt kjent med et par viktige konsepter som du kan ta med deg inn i de litt mer kreative
-oppgavene.
-
-![Animasjon av spillet](docs/images/game-animation.gif)
-
-Skjelettet av koden er allerede skrevet - og består i hovedsak av tomme metoder som
-det er opp til deg å implementere i denne delen av workshopen. Vi tar det stegvis, og når
-alle metodene er implementert ender man opp med et ferdig spill.
-
-Koden vi skal jobbe finner du i filen [Main.kt](src/main/kotlin/no/bekk/game/Main.kt).
-
-Løsningsforslag ligger i fila [Solution.kt](src/main/kotlin/no/bekk/game/solution/Solution.kt), men bruk den med omhu!  
-Vær obs på at den inneholder løsningen på alle oppgavene, så ikke ødelegg moroa for deg selv.
-
-## 1. Tegne en figur (spilleren) på skjermen.
-
-Det første vi skal gjøre er å tegne noe på skjermen, og vi starter med selve spilleren
-Start med å implementere metoden `drawPlayer` slik at den tegner spillere som en firkant
-på skjermen. Du kan fritt velge farge du ønsker å bruke.
-
-Spilleren er definert som et `Rectangle` som ligger i variabelen `this.player`. Du kan
-endre start posisjon og størrelse på spilleren ved å endre verdiene denne variabelen
-initialiseres med.
-
-Du kan bruke hjelpemetoden `drawRectangle` for å tegne et rektangel på skjermen.
-
-## 2. Styre spilleren med tastaturet
-
-Det neste vi skal gjøre er å sørge for at man kan styre spilleren med tastaturet.
-Posisjonen til spilleren er definert som en `Vector2` på `player` variabelen.
-Du kan velge å enten endre manipulere X og Y verdiene på denne direkte eller å bruke
-hjelpemetoden `Rectangle.move` for å flytte spilleren. Variabelen `delta` som man får
-inn som argument er tiden siden forrige update, og kan brukes for å sørge for at man
-får gjevn bevegelse uavhengig av update-rate. Dette kan man gjøre via å bruke den som
-en faktor: `val moveDistance = movementSpeed * delta`.
-
-For å sjekke tastatur-input kan man bruke funksjonen `Gdx.input.isKeyPressed`. F.eks.
-kan man se om man holder nede `PIL OPP` med `Gdx.input.isKeyPressed(Input.Keys.UP)`.
-
-Når man har fått spilleren til å bevege seg rundt på skjermen kan man legge til at
-spilleren ikke skal få lov til å bevege seg utenfor skjermen. Bredde og høyde på skjermen
-han man hente fra `EngineConfig.VIEWPORT_HEIGHT` og `EngineConfig.VIEWPORT_WIDTH`.
-
-Posisjonen til spilleren er posisjonen til nedre venstre hjørne av rektangelet, og
-det kan være fint å ta høyde for størrelsen på rektangelet når man skal holde spilleren
-innenfor skjermen.
-
-## 3. Lage bokser som spilleren må unngå
-
-For at det skal bli et spill må det noe mer gameplay på plass. Så her er tanken at vi
-skal ha noen bokser på starter på toppen av skjermen og "faller" nedover, og så er målet
-å unngå å bli truffet av disse. For å få dette på plass må følgende ting implementeres:
-
-- `shouldSpawnNewBlocks`: Denne metoden skal returnere true om det skal lages flere blokker
-  for spilleren å unngå.
-- `spawnNewBlock` Her skal den lage ny blokk(er). De nye blokkene skal ha en posisjon på
-  toppen av skjermen, og et tilfeldig X-koordinat. Den nye blokken skal legges i listen
-  `blocksToDodge`.
-- `drawAllBlocksToDodge`: Denne skal tegne alle blokkene som ligger i `this.blocksToDodge`.
-  Dette kan gjøres ganske likt som tegning av spilleren. Men bruk gjerne en annen farge.
-- `handleMoveBlocks`: Her flytter man blokkene nedover på skjermen. I starten er det greit
-  å bare flytte de med en konstant fart.
-
-## 4. Kollisjonstesting
-
-Om du starter main-metoden skal man når ting er implementert korrekt se at det faller ned noen
-blokker fra toppen av skjermen. Men om styrer figuren din inn i en av de vil du se at det ikke
-skjer noen ting. Det er som og blokkene ikke er der. Så det neste vi må få på plass er en
-enkel kollisjonstest.
-
-Om man ser ser i `update` metoden har den en sjekk på `playerIsColliding`. Hvis denne returnerer
-true så kaller den `onGameLost()` som resetter spillet. Så målet nå er å implementere en sjekk i
-`playerIsColliding` som sjekker om spilleren har kollidert med en av blokkene. `Rectangle.isCollidingWith`
-kan brukes for å sjekke om 2 rektangler overlapper.
-
-## 5. Ytelsesforbedring
-
-Slik spillet er implementert nå vil det gjevnlig legges til nye blokker i listen `blocksToDodge`,
-men de fjernes aldri. Over tid vil dette påvirke ytelsen både i form av at den bruker mer og mer minne
-men også at den må gjøre operasjoner på fler og fler elementer som ikke lenger er relevante. Vi trenger
-derfor en måte å rydde opp.
-
-I `update`-metoden så kaller vi `removeBlocksOutOfBounds()`. Tanken er at denne skal fjerne alle blokker
-som er utenfor skjermen, og derfor ikke lenger er relevante for spillet.
-
-## 6. Ekstra features?
-
-Vi kan nå gå videre med å legge til litt fler kule features i spillet. Her er det bare å bruke kreativiteten. Men under
-kommer det noen forslag til ting man kan legge til. Se gjerne på ting i `examples`-mappen for inspirasjon til flere ting
-man kan gjøre.
-
-#### Vise gi en score til spilleren basert på hvor bra de gjorde det?
-
-Implementere en måte å gi en score til spilleren som vises når de taper. F.eks. kan scored være hvor mange sekunder man
-klarte seg. F.eks. kan denne vises midt på skjermen etter man tapte og så må man trykke på en knapp for å starte på nytt.
-
-#### Øke vanskelighetsgraden over tid
-
-En vanlig ting i slike spill er at vanskelighetsgraden øker over tid. Her er det mange ting man kan vurdere, som f.eks.
-at man det kommer fler og fler blokker over tid. Eller at de beveger seg raskere. Kanskje de etterhvert også har ulik
-størrelse og fart?
-
-#### Bytte ut firkantene med bilder
-
-Firkanter kan være litt kjedelig. Hva om man bytter ut firkantene med noen kule bilder i stedet? Her kan man se på
-eksempelkoden [MovingGraphicModule.kt](src/main/kotlin/no/bekk/game/examples/MovingGraphicModule.kt) for hvordan
-man kan tegne grafikk på skjermen.
-
-## 7. Åpen oppgave
-
-Til slutt har vi en litt åpen oppgave, hvor du kan lage ditt helt eget spill. Bygg på det du lærte
-fra de andre oppgavene og se om du klarer å lage ett lite spill fra scratch. Ta gjerne kontakt med
-coachene om du sitter fast eller trenger hjelp.
-
-Forslag kan være å se på å lage noe som gamle klassikere som Pong eller Breakout. Eventuelt
-kanskje man vil forsøke seg på en egen Flappy Bird?
-
-For å komme i gang kan du starte med å lage en fil som inneholder koden under.
-
-```kotlin
-fun main() {
-  Lwjgl3Application(AppRunner { MyGame() }, config)
-}
-
-class MyGame: AppModule {
-  override fun update(delta: Float) {
-  }
-
-  override fun draw(delta: Float) {
-  }
-}
-```
+# Veien videre med Kordle!
+Nå har du fått en introduksjon til noen av de viktigste konseptene i Kotlin, og du er klar for å begynne arbeidet med Kordle!
+En introduksjon til både Kordle og oppgavene finner du i [her](kordle/README.md).
