@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*
 @RestController
 class UserController(val userService: UserService) {
     @GetMapping("/users")
-    fun getOrCreateUser(@RequestParam("username") username: String): User? {
+    fun getUser(@RequestParam("username") username: String): User? {
         return userService.getUserByUsername(username)
     }
 
@@ -19,15 +19,15 @@ class UserController(val userService: UserService) {
         return userService.createUser(body.username)
     }
 
+    @GetMapping("/users/{userId}/stats")
+    fun getUserStats(@PathVariable userId: Int): StatsForUser {
+        return userService.statsForUser(userId)
+    }
+
     @PostMapping("/result")
     fun registerUserOppgave(
         @RequestBody body: UserOppgaveResult
     ): StatsForUser {
         return userService.registerResult(body.userId, body.oppgaveId, body.success, body.attemptCount)
-    }
-
-    @GetMapping("/users/{userId}/stats")
-    fun getUserStats(@PathVariable userId: Int): StatsForUser {
-        return userService.statsForUser(userId)
     }
 }

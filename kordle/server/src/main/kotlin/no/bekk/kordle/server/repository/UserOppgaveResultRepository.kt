@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository
 class UserOppgaveResultRepository(
     private val jdbcTemplate: NamedParameterJdbcTemplate,
 ) {
-    fun getUserById(userId: Int): List<UserOppgaveResult> {
+    fun getResultsByUserId(userId: Int): List<UserOppgaveResult> {
         return jdbcTemplate.query(
             """
                 SELECT
