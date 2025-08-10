@@ -1,9 +1,11 @@
 package no.bekk.kordle.server.controller
 
-import no.bekk.kordle.server.exceptions.OppgavenEksistererIkkeIDatabasenException
+import no.bekk.kordle.server.exceptions.GjettetErIkkeIOrdlistaException
 import no.bekk.kordle.server.service.OppgaveService
-import no.bekk.kordle.server.service.OrdValidatorService
-import no.bekk.kordle.shared.dto.*
+import no.bekk.kordle.shared.dto.GjettOrdRequest
+import no.bekk.kordle.shared.dto.GjettResponse
+import no.bekk.kordle.shared.dto.HentFasitRequest
+import no.bekk.kordle.shared.dto.OppgaveResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.GetMapping
@@ -13,8 +15,7 @@ import org.springframework.web.bind.annotation.RestController
 
 @RestController
 class OppgaveController(
-    private val oppgaveService: OppgaveService,
-    private val ordValidatorService: OrdValidatorService
+    private val oppgaveService: OppgaveService
 ) {
 
     @GetMapping("/health")
@@ -35,25 +36,26 @@ class OppgaveController(
 
     @PostMapping("/gjettOrd")
     fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
-        val gjettetOrd = gjettOrdRequest.ordGjett
-        val oppgaveId = gjettOrdRequest.oppgaveId
-        val erGjettetOrdGyldig = ordValidatorService.isValid(gjettetOrd)
-        if (!erGjettetOrdGyldig) {
+        try {
+            val bokstavTreff = oppgaveService.gjettOrd(
+                oppgaveId = gjettOrdRequest.oppgaveId,
+                ordGjettet = gjettOrdRequest.ordGjett
+            )
+            val gjettResponse = GjettResponse(
+                oppgaveId = gjettOrdRequest.oppgaveId,
+                alleBokstavtreff = bokstavTreff
+            )
+            return ResponseEntity.ok().body(gjettResponse)
+
+        } catch (exception: RuntimeException) {
+            val statusKodeSomSkalReturneres = when (exception) {
+                is GjettetErIkkeIOrdlistaException -> HttpStatus.BAD_REQUEST
+                else -> HttpStatus.INTERNAL_SERVER_ERROR
+            }
             return ResponseEntity
-                .badRequest()
-                .body("Ordet '${gjettetOrd}' er ikke i ordlista.")
+                .status(statusKodeSomSkalReturneres)
+                .body(exception.message)
         }
-        val bokstavTreff = oppgaveService.gjettOrd(
-            oppgaveId = oppgaveId,
-            ordGjettet = gjettetOrd
-        )
-        val gjettResponse = GjettResponse(
-            oppgaveId = gjettOrdRequest.oppgaveId,
-            alleBokstavtreff = bokstavTreff
-        )
-        return ResponseEntity
-            .ok()
-            .body(gjettResponse)
     }
 
 //    @PostMapping("/gjettOrd")
@@ -92,7 +94,6 @@ class OppgaveController(
 
         } catch (exception: RuntimeException) {
             val statusKodeSomSkalReturneres = when (exception) {
-                is OppgavenEksistererIkkeIDatabasenException -> HttpStatus.BAD_REQUEST
                 else -> HttpStatus.INTERNAL_SERVER_ERROR
             }
             return ResponseEntity

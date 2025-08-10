@@ -1,7 +1,7 @@
 package no.bekk.kordle.server.service
 
+import no.bekk.kordle.server.exceptions.GjettetErIkkeIOrdlistaException
 import no.bekk.kordle.server.exceptions.GjettetHarUgyldigLengdeException
-import no.bekk.kordle.server.exceptions.OppgavenEksistererIkkeIDatabasenException
 import no.bekk.kordle.server.repository.OppgaveRepository
 import no.bekk.kordle.shared.dto.BokstavTreff
 import no.bekk.kordle.shared.dto.HentFasitResponse
@@ -9,9 +9,11 @@ import no.bekk.kordle.shared.dto.Oppgave
 import no.bekk.kordle.shared.dto.OppgaveResponse
 import org.springframework.stereotype.Service
 
+
 @Service
 class OppgaveService(
-    val oppgaveRepository: OppgaveRepository
+    val oppgaveRepository: OppgaveRepository,
+    private val ordValidatorService: OrdValidatorService
 ) {
 
     fun hentTilfeldigOppgave(): Oppgave {
@@ -25,10 +27,10 @@ class OppgaveService(
     }
 
     fun gjettOrd(oppgaveId: Int, ordGjettet: String): List<BokstavTreff> {
-        val oppgaveGjettetPaa = oppgaveRepository.hentOppgave(oppgaveId)
-        if (oppgaveGjettetPaa == null) {
-            throw OppgavenEksistererIkkeIDatabasenException("Oppgaven med ID ${oppgaveId} finnes ikke.")
+        if (!ordValidatorService.isValid(ordGjettet)) {
+            throw GjettetErIkkeIOrdlistaException("Ordet '${ordGjettet}' er ikke i ordlista.")
         }
+        val oppgaveGjettetPaa = oppgaveRepository.hentOppgave(oppgaveId)
         if (ordGjettet.length != oppgaveGjettetPaa.ord.length) {
             throw GjettetHarUgyldigLengdeException("Gjettet '${ordGjettet}' er feil lengde for oppgaven. Oppgaven har lengde ${oppgaveGjettetPaa.ord.length} tegn.")
         }
@@ -41,9 +43,6 @@ class OppgaveService(
 
     fun hentFasitOrd(oppgaveId: Int): HentFasitResponse {
         val oppgave = oppgaveRepository.hentOppgave(oppgaveId)
-        if (oppgave == null) {
-            throw OppgavenEksistererIkkeIDatabasenException("Oppgaven med ID $oppgaveId finnes ikke.")
-        }
         return HentFasitResponse(
             fasitOrd = oppgave.ord
         )
