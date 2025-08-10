@@ -34,6 +34,8 @@ data class BokstavTreff(
 
 Oppgave:
 
+1. Lag en funksjon `hentEksaktBokstavTreff` i `OppgaveService.kt`.
+
 1. Lag en funksjon `sjekkBokstavTreff` i `OppgaveService.kt` som tar inn to parametere:
     - ordIOppgave: String - Dette er ordet som er riktig for oppgaven.
     - ordGjettet: String - Dette er ordet som brukeren har gjettet.
@@ -44,6 +46,63 @@ OBS:
 
 - Husk spilleregelen om at en bokstav kan ha flere treff i et ord, men at en skal bare gi tilbakemelding lik antall
   bokstaver med treff i gjetningen.
+
+Denne oppgaven er litt knotete, så her er noen hjelpetips for å komme i gang hvis du står fast:
+
+<details>
+<summary> Hjelpetips 1 </summary>
+
+Ikke prøv å løse hele oppgaven med en gang.
+Bryt ned oppgaven ned i mindre deler, løs dem individuelt og sett dem sammen til slutt.
+
+</details>
+
+<details>
+<summary> Hjelpetips 2 </summary>
+
+Et overordnet forslag på hvordan oppgaven kan løses er:
+
+1. Finn bokstaver i det gjettede ordet som eksisterer i ordet og har rett posisjon ("Eksakt treff")
+2. Finn bokstaver i det gjettede ordet som eksisterer i ordet men har feil posisjon ("Delvis treff")
+3. Start med eksakte treffene og legg til de delvise treffene en etter en. Når en legger til et delvis treff,
+   sjekk om bokstaven en prøver å legge til allerede er "tatt" av et annet eksakt eller delvis treff.
+   Hvis en bokstav allerede er "brukt opp", kan en bare ignorere å legge til det delvise treffet til i lista
+4. Sjekk hvilke bokstaver i fasiten som ikke er dekket av treffene i trinn 3. Legg dem til som et bokstavtreff med
+   `erBokstavenIOrdet` og `erBokstavenPaaRettSted` som `false`
+
+</details>
+
+```kotlin
+private fun sjekkBokstavTreff(
+    ordIOppgave: String,
+    ordGjettet: String
+): List<BokstavTreff> {
+    val ordIOppgaveListe: MutableList<Char?> = ordIOppgave.lowercase().map { it }.toMutableList()
+    val treff = ordGjettet.lowercase().mapIndexed { index, bokstav ->
+        val hit = ordIOppgave[index] == bokstav
+        if (hit) {
+            ordIOppgaveListe[index] = null // Fjerner bokstaven fra ordet for å unngå dobbelttelling
+        }
+        BokstavTreff(
+            plassISekvensen = index,
+            bokstavGjettet = bokstav,
+            erBokstavenIOrdet = hit,
+            erBokstavenPaaRettsted = hit
+        )
+    }
+    treff.forEachIndexed { index, treff ->
+        if (treff.erBokstavenPaaRettsted) return@forEachIndexed
+        val hitIndex = ordIOppgave.indexOfFirst { it == treff.bokstavGjettet }
+        if (hitIndex != -1) {
+            treff.erBokstavenIOrdet = true
+            ordIOppgaveListe[hitIndex] = null
+        }
+    }
+    return treff
+}
+```
+
+</details>
 
 <details>
 <summary> Løsningsforslag </summary>
