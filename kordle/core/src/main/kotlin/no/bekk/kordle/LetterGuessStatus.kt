@@ -1,6 +1,6 @@
 package no.bekk.kordle
 
-import no.bekk.kordle.shared.dto.BokstavTreff
+import no.bekk.kordle.shared.dto.BokstavTreffDTO
 
 enum class LetterGuessStatus {
     NOT_GUESSED,
@@ -9,11 +9,11 @@ enum class LetterGuessStatus {
     CORRECT_POSITION;
 
     companion object {
-        fun fromResponse(response: BokstavTreff): LetterGuessStatus {
+        fun fromResponse(response: BokstavTreffDTO): LetterGuessStatus {
             return when {
-                !response.erBokstavenIOrdet -> LetterGuessStatus.NOT_IN_WORD
-                response.erBokstavenPaaRettsted -> LetterGuessStatus.CORRECT_POSITION
-                else -> LetterGuessStatus.WRONG_POSITION
+                !response.erBokstavenIOrdet -> NOT_IN_WORD
+                response.erBokstavenPaaRettsted -> CORRECT_POSITION
+                else -> WRONG_POSITION
             }
         }
     }
