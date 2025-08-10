@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Net
 import com.badlogic.gdx.net.HttpStatus
 import kotlinx.serialization.json.Json
+import no.bekk.kordle.exceptions.StatusCodeException
 import no.bekk.kordle.shared.dto.*
 import java.time.Instant
 import java.time.ZoneId
@@ -34,11 +35,13 @@ inline fun <reified R> executeRequest(
                     onError(e)
                 }
             } else {
-                printWithTimeStamp(
-                    "Et ${request.method}-kall til endepunktet '${request.url}' returnerte statuskoden '$statusCode'." +
-                        "Feilmeldingen fra serveren var: '${responseBody}'"
+                onError(
+                    StatusCodeException(
+                        message = "HTTP request failed with status code $statusCode: $responseBody",
+                        statusCode = HttpStatus(statusCode),
+                        responseBody = responseBody
+                    )
                 )
-                onError(Exception("HTTP request failed with status code $statusCode: $responseBody"))
             }
         }
 
@@ -91,7 +94,15 @@ fun getTilfeldigOppgave(
             onSuccess(response)
         },
         onError = { error ->
-            printWithTimeStamp("Klarte ikke å hente tilfeldig oppgave grunnet feilen: '$error'")
+            if (error is StatusCodeException) {
+                printStatusCodeException(
+                    methodExecuted = "Klarte ikke å hente tilfeldig oppgave grunnet feilen:\n",
+                    request = request,
+                    statusCodeException = error
+                )
+            } else {
+                printWithTimeStamp("Klarte ikke å hente ut en tilfeldig oppgave grunnet feilen: '$error'")
+            }
             onFailure(error)
         }
     )
@@ -110,7 +121,15 @@ fun gjettOrd(
             onSuccess(response)
         },
         onError = { error ->
-            println("Error occurred: $error")
+            if (error is StatusCodeException) {
+                printStatusCodeException(
+                    methodExecuted = "Klarte ikke å utføre et gjett på oppgaven med oppgaveId '${gjettOrdRequest.oppgaveId}' og gjettet '${gjettOrdRequest.ordGjett}' grunnet feilen:\n",
+                    request = request,
+                    statusCodeException = error
+                )
+            } else {
+                printWithTimeStamp("Klarte ikke å gjette på et ord grunnet feilen: '$error'")
+            }
             onError(error)
         }
     )
@@ -128,7 +147,17 @@ fun getUser(
             onSuccess(response)
         },
         onError = { error ->
-            printWithTimeStamp("Klarte ikke å hente ut bruker grunnet feilen: '$error'")
+            if (error is StatusCodeException) {
+                if (error.statusCode.statusCode != 404) {
+                    printStatusCodeException(
+                        methodExecuted = "Klarte ikke å hente ut brukeren med brukernavn '${username}' grunnet feilen:\n",
+                        request = request,
+                        statusCodeException = error
+                    )
+                }
+            } else {
+                printWithTimeStamp("Klarte ikke å hente ut bruker grunnet feilen: '$error'")
+            }
         }
     )
 }
@@ -144,7 +173,15 @@ fun createUser(
             onSuccess(response)
         },
         onError = { error ->
-            printWithTimeStamp("Klarte ikke å lage en bruker grunnet feilen: '$error'")
+            if (error is StatusCodeException) {
+                printStatusCodeException(
+                    methodExecuted = "Klarte ikke å opprette brukeren med brukernavn '${createUserRequest.username}' grunnet feilen:\n",
+                    request = request,
+                    statusCodeException = error
+                )
+            } else {
+                printWithTimeStamp("Klarte ikke å lage en bruker grunnet feilen: '$error'")
+            }
         }
     )
 }
@@ -161,7 +198,13 @@ fun registerResult(
             onSuccess(response)
         },
         onError = { error ->
-            println("Error occurred: $error")
+            if (error is StatusCodeException) {
+                printStatusCodeException(
+                    methodExecuted = "Klarte ikke å registrere et resultat på brukeren med brukernavn '${userOppgaveResult.userId}' grunnet feilen:\n",
+                    request = request,
+                    statusCodeException = error
+                )
+            }
         }
     )
 }
@@ -178,7 +221,13 @@ fun getUserStats(
             onSuccess(response)
         },
         onError = { error ->
-            println("Error occurred: $error")
+            if (error is StatusCodeException) {
+                printStatusCodeException(
+                    methodExecuted = "Klarte ikke å hente ut statistikken på en bruker med userId lik '${userId}' grunnet feilen:\n",
+                    request = request,
+                    statusCodeException = error
+                )
+            }
         }
     )
 }
@@ -196,7 +245,13 @@ fun getFasitord(
             onSuccess(response)
         },
         onError = { error ->
-            println("Error occurred: $error")
+            if (error is StatusCodeException) {
+                printStatusCodeException(
+                    methodExecuted = "Klarte ikke å hente ut fasitordet på oppgaven med oppgaveId lik '${oppgaveId}' grunnet feilen:\n",
+                    request = request,
+                    statusCodeException = error
+                )
+            }
             onFailure(error)
         }
     )
@@ -211,4 +266,16 @@ fun getCurrentTime(): String {
 
 fun printWithTimeStamp(message: String) {
     println("[${getCurrentTime()}]: $message")
+}
+
+fun printStatusCodeException(
+    methodExecuted: String,
+    request: Net.HttpRequest,
+    statusCodeException: StatusCodeException
+) {
+    val requestMetadataErrorString =
+        methodExecuted + "Et ${request.method}-kall til endepunktet '${request.url}' returnerte statuskoden '${statusCodeException.statusCode.statusCode}'. "
+    val errorMessage =
+        if (statusCodeException.responseBody != null) requestMetadataErrorString + "Feilmeldingen fra serveren var: '${statusCodeException.responseBody}'" else requestMetadataErrorString
+    printWithTimeStamp(errorMessage)
 }

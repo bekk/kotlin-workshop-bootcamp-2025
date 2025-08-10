@@ -24,16 +24,6 @@ class UserService(
             ?: throw IllegalStateException("User creation failed for username: $username")
     }
 
-    fun registerResult(
-        userId: Int,
-        oppgaveId: Int,
-        success: Boolean,
-        guesses: Int
-    ): StatsForUser {
-        userOppgaveResultRepository.create(userId, oppgaveId, success, guesses)
-        return statsForUser(userId)
-    }
-
     fun statsForUser(userId: Int): StatsForUser {
         val resultater = userOppgaveResultRepository.getUserById(userId)
         val oppgaveCountByAttemptCount = resultater
@@ -42,6 +32,16 @@ class UserService(
             .mapValues { it.value.size }
         val amountOfOppgaverFailed = resultater.count { !it.success }
         return StatsForUser(userId, amountOfOppgaverFailed, oppgaveCountByAttemptCount)
+    }
+
+    fun registerResult(
+        userId: Int,
+        oppgaveId: Int,
+        success: Boolean,
+        guesses: Int
+    ): StatsForUser {
+        userOppgaveResultRepository.create(userId, oppgaveId, success, guesses)
+        return statsForUser(userId)
     }
 
     fun hentFasitOrd(oppgaveId: Int): HentFasitResponse {
