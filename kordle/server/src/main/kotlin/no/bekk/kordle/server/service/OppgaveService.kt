@@ -5,8 +5,6 @@ import org.springframework.stereotype.Service
 
 
 @Service
-class OppgaveService(
-    val oppgaveRepository: OppgaveRepository
-) {
+class OppgaveService() {
     // TODO: Legg inn metoder her
 }
