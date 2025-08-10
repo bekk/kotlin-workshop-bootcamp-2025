@@ -17,17 +17,19 @@ Titt litt på funksjonen `gjettOrd` i `OppgaveController.kt`.
 Hvis alt går bra ved kjøring av den funksjonen returnerer den en instans av `GjettResponse`.
 Det som skjer litt bak scenen er at Spring Boot automatisk antar at dersom en funksjon kjører uten feil, så responsen
 fra serveren ha HTTP statuskoden 200 OK.
+Dersom en funksjon kaster en feil, vil Spring Boot returnere en HTTP statuskode 500 Internal Server Error.
 
 For å kunne manipulere HTTP statuskoden som returneres, kan vi bruke `ResponseEntity`-klassen fra Spring boot som kan
 leses mer
 om [her](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/responseentity.html).
+
 Fremfor å la Spring Boot håndtere HTTP statuskoden automatisk, kan vi opprette en `ResponseEntity` selv og sette
 statuskoden manuelt.
 
 En ekvivalent måte å skrive vår nåværende `gjettOrd`-funksjon på med `ResponseEntity` kunne ha sett slik ut:
 
 ```kotlin
-@PostMapping("/gjettOrd")
+    @PostMapping("/gjettOrd")
 fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
     val bokstavTreff = oppgaveService.gjettOrd(
         oppgaveId = gjettOrdRequest.oppgaveId,
@@ -35,13 +37,17 @@ fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
     )
     val gjettResponse = GjettResponse(
         oppgaveId = gjettOrdRequest.oppgaveId,
-        alleBokstavtreff = bokstavTreff
+        alleBokstavtreff = bokstavTreff.map { it.tilBokstavTreffDTO() }
     )
     return ResponseEntity
         .ok()
         .body(gjettResponse)
 }
 ```
+
+I dette eksempelet har vi byttet ut return-typen fra `GjettResponse` til `ResponseEntity<*>`, og vi bruker
+`ResponseEntity.ok().body(gjettResponse)` for å returnere en `ResponseEntity` med statuskoden 200 OK og
+`GjettResponse`-objektet som body.
 
 I denne oppgaven ønsker vi å returnere en 400 Bad Request statuskode dersom brukeren gjetter et ord som ikke finnes i
 vår liste over gyldige ord.
