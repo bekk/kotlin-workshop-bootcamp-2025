@@ -50,16 +50,32 @@ I dette eksempelet har vi byttet ut return-typen fra `GjettResponse` til `Respon
 `GjettResponse`-objektet som body.
 
 I denne oppgaven ønsker vi å returnere en 400 Bad Request statuskode dersom brukeren gjetter et ord som ikke finnes i
-vår liste over gyldige ord.
-`OppgaveController.kt` drar inn en annen service `OrdValidatorService` som kan brukes til å sjekke om et ord er gyldig.
+vår liste over gyldige ord. I klassen `OrdValidatorService` (finnes
+her [her](../server/src/main/kotlin/no/bekk/kordle/server/service/OrdValidatorService.kt))
+finnes det allerede funksjonalitet for å validere om et ord er gyldig.
 
 Oppgaver:
 
-1. Endre `gjettOrd`-funksjonen i `OppgaveController.kt` på følgende måte:
+1. Sett inn `OrdValidatorService` som et parameter i `OppgaveController` og endre `gjettOrd`-funksjonen i
+   `OppgaveController.kt` på følgende måte:
     - Hvis `ordGjettet` ikke er et gyldig ord, skal funksjonen returnere en `ResponseEntity` med statuskoden 400 Bad
       Request og en passende feilmelding.
     - Hvis det gjettede ordet er korrekt, skal funksjonen returnere en `ResponseEntity` med statuskoden 200 OK og
       `GjettResponse`-objektet.
+
+Du kan validere at denne funksjonaliteten fungerer som forventet ved å kjøre følgende kommandoer:
+
+Denne skal returnere 200 OK:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"oppgaveId": 1, "ordGjett": "test"}' http://localhost:8080/gjettOrd -w "\nHTTP Status: %{http_code}\n"
+```
+
+Denne skal returnere en 400 Bad Request med en passende feilmelding:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"oppgaveId": 1, "ordGjett": "testtt"}' http://localhost:8080/gjettOrd -w "\nHTTP Status: %{http_code}\n"
+```
 
 <details>
 <summary> Løsningsforslag </summary>
@@ -76,12 +92,12 @@ fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
             .body("Ordet '${gjettetOrd}' er ikke i ordlista.")
     }
     val bokstavTreff = oppgaveService.gjettOrd(
-        oppgaveId = gjettOrdRequest.oppgaveId,
-        ordGjettet = gjettOrdRequest.ordGjett
+        oppgaveId = oppgaveId,
+        ordGjettet = gjettetOrd
     )
     val gjettResponse = GjettResponse(
-        oppgaveId = gjettOrdRequest.oppgaveId,
-        alleBokstavtreff = bokstavTreff
+        oppgaveId = oppgaveId,
+        alleBokstavtreff = bokstavTreff.map { it.tilBokstavTreffDTO() }
     )
     return ResponseEntity
         .ok()
@@ -101,9 +117,10 @@ Et eksempel på en slik exception kan være `GjettetErIkkeIOrdlistaException` i
 fila [exceptions.kt](../server/src/main/kotlin/no/bekk/kordle/server/exceptions/exceptions.kt),
 som kan kastes dersom et ord som ikke er i ordlista blir gjettet.
 
-1. Flytt valideringslogikken for å sjekke om et ord eksisterer fra `OppgaveController.kt` til `OppgaveService.kt`.
+1. Flytt valideringslogikken for å sjekke om et ord eksisterer fra `OppgaveController.kt` til `gjettOrd` i
+   `OppgaveService.kt`.
     - Hvis et ord ikke er gyldig, skal `OppgaveService` kaste en `GjettetErIkkeIOrdlistaException`.
-    - Hvis gjettingen er korrekt, skal funksjonen returnere en `GjettResponse`.
+    - Hvis gjettingen er korrekt, skal funksjonen returnere en `List<BokstavTreff>`.
 
 2. Håndter den kastede feilen `GjettetErIkkeIOrdlistaException` i `OppgaveController.kt` ved hjelp av en `try-catch`
    -block (kan leses om [her](https://kotlinlang.org/docs/exceptions.html)).
@@ -174,7 +191,7 @@ fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
         )
         val gjettResponse = GjettResponse(
             oppgaveId = gjettOrdRequest.oppgaveId,
-            alleBokstavtreff = bokstavTreff
+            alleBokstavtreff = bokstavTreff.map { it.tilBokstavTreffDTO() }
         )
         return ResponseEntity.ok().body(gjettResponse)
 
@@ -223,7 +240,7 @@ fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
         )
         val gjettResponse = GjettResponse(
             oppgaveId = gjettOrdRequest.oppgaveId,
-            alleBokstavtreff = bokstavTreff
+            alleBokstavtreff = bokstavTreff.map { it.tilBokstavTreffDTO() }
         )
         return ResponseEntity.ok().body(gjettResponse)
 

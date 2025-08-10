@@ -171,7 +171,7 @@ bruke
 følgende kommando i terminalen for å hente ut en tilfeldig oppgave:
 
 ```bash
-curl -X GET http://localhost:8080/hentTilfeldigOppgave -s | jq .
+curl -X GET http://localhost:8080/hentTilfeldigOppgave -s -w "\nHTTP Status: %{http_code}\n"
 ```
 
 <details>
