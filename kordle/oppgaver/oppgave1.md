@@ -97,7 +97,7 @@ Hvis du vil lese mer om dependency injection i Spring, kan du gjøre det [her](h
 
 Oppgaver:
 
-1. I `OppgaveService.kt`, dra inn `OppgaveService` som en dependency ved å legge den til som et parameter i klassen
+1. I `OppgaveService.kt` (ligger [her](../server/src/main/kotlin/no/bekk/kordle/server/service/OppgaveService.kt)), dra inn `OppgaveRepository` som en dependency ved å legge den til som et parameter i klassen
    `OppgaveService`
 2. Lag en funksjon i `OppgaveService.kt` som henter ut alle oppgaver ved å bruke `oppgaveRepository.hentAlleOppgaver()`.
    Videre skal en velge en tilfeldig oppgave fra listen med oppgaver og returnere et objekt av typen `Oppgave`
