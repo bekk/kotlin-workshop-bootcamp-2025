@@ -13,10 +13,9 @@ Disse ordene kan sees ved å
 3. Hvis dropdown-menyen for `H2` ikke kommer opp, høyreklikk på `H2` og trykk på `Refresh`. Hvis dropdown-menyen kommer
    opp, kan du bare ignorere dette punktet.
 
-4. Trykk deretter på `H2` -> `MYDB` -> `PUBLIC` -> `tables` -> `OPPGAVE`
+4. Trykk deretter på `H2` -> `MYDB` -> `PUBLIC` -> `tables` og til slutt dobbeltklikk på `OPPGAVE`
 
    <img src="../images/oppgave1/database_tables.png" width="60%" />
-
 
 5. Her vil en se at `oppgave`-tabellen består av følgende kolonner:
     - `id` - ID-en til oppgaven
