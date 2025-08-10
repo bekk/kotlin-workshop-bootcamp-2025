@@ -2,9 +2,8 @@
 
 Per nå returnerer vi alltid en av to HTTP statuskoder:
 
-# - 200 OK hvis gjetningen er korrekt
-
-# - 500 Internal Server Error hvis noe går galt
+- 200 OK hvis gjetningen er korrekt
+- 500 Internal Server Error hvis noe går galt
 
 Dette er ikke ideelt, da det ikke gir frontenden informasjon om hva som gikk galt.
 Gjettet brukeren et ord som ikke finnes? Eller sendte brukeren inn en ID som ikke eksisterer?
@@ -105,9 +104,25 @@ som kan kastes dersom et ord som ikke er i ordlista blir gjettet.
     - Når denne exceptionen kastes, skal controlleren returnere en `ResponseEntity` med statuskoden 400 Bad Request og
       en passende feilmelding.
 
+Når du føler deg ferdig, kan du teste at endepunktet fungerer som forventet ved å kjøre følgende kommando i terminalen:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"oppgaveId": 1, "ordGjett": "testtt"}' -s http://localhost:8080/gjettOrd 
+```
+
+Her skal du få tilbake feilmeldingen du skrev for `GjettetErIkkeIOrdlistaException`.
+
 3. Legg til ekstra validering i `OppgaveService.kt` for å sjekke om det gjettede ordet er korrekt lengde for oppgaven.
     - Hvis lengden ikke er korrekt  `OppgaveService` kaste en custom exception `GjettetHarUgyldigLengdeException`.
     - Håndter denne exceptionen i `OppgaveController.kt` på samme måte som for `GjettetErIkkeIOrdlistaException
+
+Du kan validere at denne funksjonaliteten fungerer som forventet ved å kjøre følgende kommando i terminalen:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"oppgaveId": 2, "ordGjett": "test"}' http://localhost:8080/gjettOrd
+```
+
+Her skal du få tilbake feilmeldingen du skrev for `GjettetHarUgyldigLengdeException`.
 
 <details>
 <summary> Løsningsforslag </summary>
@@ -220,19 +235,3 @@ fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
 ```
 
 </details>
-
-
-🧪 Når du er ferdig, kan du kjøre opp backenden og kjøre disse kommandoene i terminalen for å teste at alt fungerer som
-forventet:
-
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"oppgaveId": 1, "ordGjett": "testtt"}' -s http://localhost:8080/gjettOrd 
-```
-
-Her skal du få tilbake feilmeldingen du skrev for `GjettetErIkkeIOrdlistaException`.
-
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"oppgaveId": 2, "ordGjett": "test"}' http://localhost:8080/gjettOrd
-```
-
-Her skal du få tilbake feilmeldingen du skrev for `GjettetErIkkeIOrdlistaException`.

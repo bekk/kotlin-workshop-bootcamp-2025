@@ -1,13 +1,19 @@
 package no.bekk.kordle.server.service
 
+import no.bekk.kordle.server.repository.OppgaveRepository
 import no.bekk.kordle.server.repository.UserOppgaveResultRepository
 import no.bekk.kordle.server.repository.UserRepository
+import no.bekk.kordle.shared.dto.HentFasitResponse
 import no.bekk.kordle.shared.dto.StatsForUser
 import no.bekk.kordle.shared.dto.User
 import org.springframework.stereotype.Service
 
 @Service
-class UserService(val userRepository: UserRepository, val userOppgaveResultRepository: UserOppgaveResultRepository) {
+class UserService(
+    val userRepository: UserRepository,
+    val userOppgaveResultRepository: UserOppgaveResultRepository,
+    val oppgaveRepository: OppgaveRepository
+) {
     fun getUserByUsername(username: String): User? {
         return userRepository.getUserByUsername(username)
     }
@@ -36,5 +42,12 @@ class UserService(val userRepository: UserRepository, val userOppgaveResultRepos
             .mapValues { it.value.size }
         val amountOfOppgaverFailed = resultater.count { !it.success }
         return StatsForUser(userId, amountOfOppgaverFailed, oppgaveCountByAttemptCount)
+    }
+
+    fun hentFasitOrd(oppgaveId: Int): HentFasitResponse {
+        val oppgave = oppgaveRepository.hentOppgave(oppgaveId)
+        return HentFasitResponse(
+            fasitOrd = oppgave.ord
+        )
     }
 }

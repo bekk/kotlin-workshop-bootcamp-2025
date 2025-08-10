@@ -4,7 +4,6 @@ import no.bekk.kordle.server.exceptions.GjettetErIkkeIOrdlistaException
 import no.bekk.kordle.server.exceptions.GjettetHarUgyldigLengdeException
 import no.bekk.kordle.server.repository.OppgaveRepository
 import no.bekk.kordle.shared.dto.BokstavTreff
-import no.bekk.kordle.shared.dto.HentFasitResponse
 import no.bekk.kordle.shared.dto.Oppgave
 import no.bekk.kordle.shared.dto.OppgaveResponse
 import org.springframework.stereotype.Service
@@ -39,13 +38,6 @@ class OppgaveService(
             ordGjettet = ordGjettet
         )
         return bokstavTreff
-    }
-
-    fun hentFasitOrd(oppgaveId: Int): HentFasitResponse {
-        val oppgave = oppgaveRepository.hentOppgave(oppgaveId)
-        return HentFasitResponse(
-            fasitOrd = oppgave.ord
-        )
     }
 
     private fun sjekkBokstavTreff(

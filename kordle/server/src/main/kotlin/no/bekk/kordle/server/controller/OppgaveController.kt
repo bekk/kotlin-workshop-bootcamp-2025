@@ -5,7 +5,6 @@ import no.bekk.kordle.server.exceptions.GjettetHarUgyldigLengdeException
 import no.bekk.kordle.server.service.OppgaveService
 import no.bekk.kordle.shared.dto.GjettOrdRequest
 import no.bekk.kordle.shared.dto.GjettResponse
-import no.bekk.kordle.shared.dto.HentFasitRequest
 import no.bekk.kordle.shared.dto.OppgaveResponse
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -52,50 +51,6 @@ class OppgaveController(
             val statusKodeSomSkalReturneres = when (exception) {
                 is GjettetHarUgyldigLengdeException -> HttpStatus.BAD_REQUEST
                 is GjettetErIkkeIOrdlistaException -> HttpStatus.BAD_REQUEST
-                else -> HttpStatus.INTERNAL_SERVER_ERROR
-            }
-            return ResponseEntity
-                .status(statusKodeSomSkalReturneres)
-                .body(exception.message)
-        }
-    }
-
-//    @PostMapping("/gjettOrd")
-//    fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
-//        try {
-//            if (!ordValidatorService.isValid(gjettOrdRequest.ordGjett)) {
-//                throw GjettetErIkkeIOrdlistaException("Ordet '${gjettOrdRequest.ordGjett}' er ikke i ordlista.")
-//            }
-//            val bokstavTreff = oppgaveService.gjettOrd(
-//                oppgaveId = gjettOrdRequest.oppgaveId,
-//                ordGjettet = gjettOrdRequest.ordGjett
-//            )
-//            val gjettResponse = GjettResponse(
-//                oppgaveId = gjettOrdRequest.oppgaveId,
-//                alleBokstavtreff = bokstavTreff
-//            )
-//            return ResponseEntity.ok().body(gjettResponse)
-//
-//        } catch (exception: RuntimeException) {
-//            val statusKodeSomSkalReturneres = when (exception) {
-//                is GjettetHarUgyldigLengdeException -> HttpStatus.BAD_REQUEST
-//                is OppgavenEksistererIkkeIDatabasenException -> HttpStatus.BAD_REQUEST
-//                else -> HttpStatus.INTERNAL_SERVER_ERROR
-//            }
-//            return ResponseEntity
-//                .status(statusKodeSomSkalReturneres)
-//                .body(exception.message)
-//        }
-//    }
-
-    @PostMapping("/hentFasit")
-    fun hentFasit(@RequestBody hentFasitRequest: HentFasitRequest): ResponseEntity<*> {
-        try {
-            val fasitOrd = oppgaveService.hentFasitOrd(hentFasitRequest.oppgaveId)
-            return ResponseEntity.ok().body(fasitOrd)
-
-        } catch (exception: RuntimeException) {
-            val statusKodeSomSkalReturneres = when (exception) {
                 else -> HttpStatus.INTERNAL_SERVER_ERROR
             }
             return ResponseEntity
