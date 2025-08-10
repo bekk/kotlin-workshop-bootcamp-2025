@@ -105,18 +105,19 @@ Dette skal se slik ut:
 
 4. Når serveren er oppe, kan en starte opp skrivebordsapplikasjonen ved å velge `Frontend` i dropdown-menyen og trykke
    på den grønne play-knappen. Dette vil da:
-    1. Starte opp en LWJGL3-applikasjon som viser GUI-en for spillet.
-    2. Koble til serveren som kjører på port 8080 for å hente ordlisten og sende gjetninger.
+    1. Kjøre opp GUI-en for Kordle-spillet.
+    2. Koble seg til backend-serveren vi nettopp startet opp.
 
-5. Kjør kommandoen
+5. I frontenden vil en se en feil at en ikke klarer å hente ut en tilfeldig oppgave fra serverne. Dette er forventet adferd og er noe vi håper at DU kan hjelpe oss med å løse! 😄
+
+6. Kjør denne kommandoen i terminalen for å sjekke om serveren er oppe og kjører:
 
 ```bash
 curl -X GET http://localhost:8080/health
 ```
 
 Hvis du får en respons som sier `Kordle server is running`, så er serveren oppe og kjører som den skal!
-Om alt har gått knirkefritt så skal du nå være klar til å ta fatt på oppgavene! 🚀
+Nå er det bare å ta fatt på oppgavene! 🚀 Oppgavene finner du i mappa [oppgaver](./oppgaver) nevner nok en gang at 
+oppgavene er laget for å bli løst innad i mappen [server](./server) ❤️
 
 Hvis det skulle være noen problemer eller utfordringer er det bare å rope ut, så kommer vi og bistår! 🏃💨
-
-
