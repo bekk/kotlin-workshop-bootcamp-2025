@@ -131,7 +131,7 @@ fun hentTilfeldigOppgave(): Oppgave {
 
 </details>
 
-## Oppgave 1.3: Api-endepunkter og Data Transfer Objects (DTOer)
+## Oppgave 1.3: Api-endepunkter
 
 I denne oppgaven skal vi åpne opp et endepunkt for å bruke vår nye funksjonalitet, evnen til å hente ut en tilfeldig oppgave. 
 Dette vil la frontenden vår hente ut en tilfeldig oppgave fra serveren og vise den til brukeren. For å kunne gjøre dette, må vi lage et REST-endepunkt.
