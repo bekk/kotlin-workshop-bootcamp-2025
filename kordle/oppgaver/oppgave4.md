@@ -72,57 +72,208 @@ HTTP message body:
 
 Returtype: `StatsForUser`
 
-### `/hentFasit` (POST)
 
-Forventet funksjonalitet: : Henter fasitordet for en oppgave basert på oppgave-IDen.
+<details>
+<summary> Løsningsforslag for `/users` (GET) </summary>
 
-#### Api-spesifikasjon
-
-HTTP message body:
-
-- En instans av `HentFasitRequest`
-
-Returtype: `String`
+I `UserController.kt`:
 
 ```kotlin
-    @GetMapping("/users")
-fun getOrCreateUser(@RequestParam("username") username: String): User? {
+@GetMapping("/users")
+fun getUser(@RequestParam("username") username: String): User? {
     return userService.getUserByUsername(username)
 }
+```
 
+I `UserService.kt`:
+
+```kotlin
+@Service
+class UserService(
+    val userRepository: UserRepository,
+    ...
+) {
+    ...
+    fun getUserByUsername(username: String): User? {
+        return userRepository.getUserByUsername(username)
+    }
+    ...
+}
+```
+
+I `UserRepository.kt`:
+
+```kotlin
+fun getUserByUsername(username: String): User? {
+    return jdbcTemplate.query(
+        """
+            SELECT
+               *
+            FROM
+               KordleUser
+            WHERE
+               Username = :username""".trimIndent(),
+        mapOf("username" to username),
+        DataClassRowMapper(User::class.java)
+    ).singleOrNull()
+}
+```
+
+</details>
+
+<details>
+<summary> Løsningsforslag for `/users` (POST) </summary>
+
+I `UserController.kt`:
+
+```kotlin
 @PostMapping("/users")
 fun createUser(@RequestBody body: CreateUserRequest): User {
     return userService.createUser(body.username)
 }
+```
 
+I `UserService.kt`:
+
+```kotlin
+fun createUser(username: String): User {
+    userRepository.createUser(username)
+    return userRepository.getUserByUsername(username)
+        ?: throw IllegalStateException("Klarte ikke opprette bruker med navn $username")
+}
+```
+
+I `UserRepository.kt`:
+
+```kotlin
+fun createUser(username: String) {
+    val sql = """
+        INSERT INTO
+            KordleUser (Username)
+        VALUES
+            (:username);
+    """.trimIndent()
+
+    jdbcTemplate.update(
+        sql,
+        mapOf("username" to username)
+    )
+}
+```
+
+<details>
+<summary> Løsningsforslag for `/users/{userId}/stats` (GET) </summary>
+
+I `UserController.kt`:
+
+```kotlin
+@GetMapping("/users/{userId}/stats")
+fun getUserStats(@PathVariable userId: Int): StatsForUser {
+    return userService.statsForUser(userId)
+}
+```
+
+I `UserService.kt`:
+
+```kotlin
+@Service
+class UserService(
+    val userRepository: UserRepository,
+    val userOppgaveResultRepository: UserOppgaveResultRepository,
+) {
+    ...
+
+    fun statsForUser(userId: Int): StatsForUser {
+        val resultater = userOppgaveResultRepository.getResultsByUserId(userId)
+        val oppgaveCountByAttemptCount = resultater
+            .filter { it.success }
+            .groupBy { it.attemptCount }
+            .mapValues { it.value.size }
+        val amountOfOppgaverFailed = resultater.count { !it.success }
+        return StatsForUser(userId, amountOfOppgaverFailed, oppgaveCountByAttemptCount)
+    }
+}
+```
+
+I `UserRepository.kt`:
+
+```kotlin
+fun getResultsByUserId(userId: Int): List<UserOppgaveResult> {
+    return jdbcTemplate.query(
+        """
+                SELECT
+                   *
+                FROM
+                   UserOppgaveResult
+                WHERE
+                   UserId = :userId""".trimIndent(),
+        mapOf("userId" to userId),
+        DataClassRowMapper(UserOppgaveResult::class.java)
+    )
+}
+```
+
+</details>
+
+
+
+<details>
+<summary> Løsningsforslag for `/result` (POST) </summary>
+
+I `UserController.kt`:
+
+```kotlin
 @PostMapping("/result")
 fun registerUserOppgave(
     @RequestBody body: UserOppgaveResult
 ): StatsForUser {
     return userService.registerResult(body.userId, body.oppgaveId, body.success, body.attemptCount)
 }
+```
 
-@GetMapping("/users/{userId}/stats")
-fun getUserStats(@PathVariable userId: Int): StatsForUser {
-    return userService.statsForUser(userId)
-}
+I `UserService.kt`:
 
-@PostMapping("/hentFasit")
-fun hentFasit(@RequestBody hentFasitRequest: HentFasitRequest): ResponseEntity<*> {
-    try {
-        val fasitOrd = userService.hentFasitOrd(hentFasitRequest.oppgaveId)
-        return ResponseEntity.ok().body(fasitOrd)
-
-    } catch (exception: RuntimeException) {
-        val statusKodeSomSkalReturneres = when (exception) {
-            else -> HttpStatus.INTERNAL_SERVER_ERROR
-        }
-        return ResponseEntity
-            .status(statusKodeSomSkalReturneres)
-            .body(exception.message)
-    }
+```kotlin
+fun registerResult(
+    userId: Int,
+    oppgaveId: Int,
+    success: Boolean,
+    guesses: Int
+): StatsForUser {
+    userOppgaveResultRepository.create(userId, oppgaveId, success, guesses)
+    return statsForUser(userId)
 }
 ```
+
+I `UserRepository.kt`:
+
+```kotlin
+fun create(
+    userId: Int,
+    oppgaveId: Int,
+    success: Boolean,
+    guesses: Int
+) {
+    val sql = """
+            INSERT INTO
+                UserOppgaveResult (UserId, OppgaveId, Success, AttemptCount)
+            VALUES
+                (:userId, :oppgaveId, :success, :guesses);
+        """.trimIndent()
+
+    jdbcTemplate.update(
+        sql,
+        mapOf(
+            "userId" to userId,
+            "oppgaveId" to oppgaveId,
+            "success" to success,
+            "guesses" to guesses
+        )
+    )
+}
+```
+
+</details>
 
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"username": "test"}' http://localhost:8080/users

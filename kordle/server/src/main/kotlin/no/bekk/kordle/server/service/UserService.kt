@@ -3,7 +3,6 @@ package no.bekk.kordle.server.service
 import no.bekk.kordle.server.repository.OppgaveRepository
 import no.bekk.kordle.server.repository.UserOppgaveResultRepository
 import no.bekk.kordle.server.repository.UserRepository
-import no.bekk.kordle.shared.dto.HentFasitResponse
 import no.bekk.kordle.shared.dto.StatsForUser
 import no.bekk.kordle.shared.dto.User
 import org.springframework.stereotype.Service
@@ -21,11 +20,11 @@ class UserService(
     fun createUser(username: String): User {
         userRepository.createUser(username)
         return userRepository.getUserByUsername(username)
-            ?: throw IllegalStateException("User creation failed for username: $username")
+            ?: throw IllegalStateException("Klarte ikke opprette bruker med navn $username")
     }
 
     fun statsForUser(userId: Int): StatsForUser {
-        val resultater = userOppgaveResultRepository.getUserById(userId)
+        val resultater = userOppgaveResultRepository.getResultsByUserId(userId)
         val oppgaveCountByAttemptCount = resultater
             .filter { it.success }
             .groupBy { it.attemptCount }
@@ -42,12 +41,5 @@ class UserService(
     ): StatsForUser {
         userOppgaveResultRepository.create(userId, oppgaveId, success, guesses)
         return statsForUser(userId)
-    }
-
-    fun hentFasitOrd(oppgaveId: Int): HentFasitResponse {
-        val oppgave = oppgaveRepository.hentOppgave(oppgaveId)
-        return HentFasitResponse(
-            fasitOrd = oppgave.ord
-        )
     }
 }
