@@ -49,7 +49,8 @@ Oppgave:
       Funksjonen skal returnere en liste med `BokstavTreff`-objekter hvor bokstaven eksisterer i ordet men er plassert
       på feil sted
 
-</details>
+<details>
+<summary> Løsningsforslag </summary>
 
 Oppgave 1:
 
@@ -107,41 +108,6 @@ fun finnDelvisBokstavTreff(
 
 </details>
 
-<details>
-<summary> Løsningsforslag </summary>
-
-```kotlin
-private fun sjekkBokstavTreff(
-    ordIOppgave: String,
-    ordGjettet: String
-): List<BokstavTreff> {
-    val ordIOppgaveListe: MutableList<Char?> = ordIOppgave.lowercase().map { it }.toMutableList()
-    val treff = ordGjettet.lowercase().mapIndexed { index, bokstav ->
-        val hit = ordIOppgave[index] == bokstav
-        if (hit) {
-            ordIOppgaveListe[index] = null // Fjerner bokstaven fra ordet for å unngå dobbelttelling
-        }
-        BokstavTreff(
-            plassISekvensen = index,
-            bokstavGjettet = bokstav,
-            erBokstavenIOrdet = hit,
-            erBokstavenPaaRettsted = hit
-        )
-    }
-    treff.forEachIndexed { index, treff ->
-        if (treff.erBokstavenPaaRettsted) return@forEachIndexed
-        val hitIndex = ordIOppgave.indexOfFirst { it == treff.bokstavGjettet }
-        if (hitIndex != -1) {
-            treff.erBokstavenIOrdet = true
-            ordIOppgaveListe[hitIndex] = null
-        }
-    }
-    return treff
-}
-```
-
-</details>
-
 ## Oppgave 2.2: Foretningslogikk og databaseinteraksjon
 
 Nå som vi har en funksjon som kan sjekke treff på bokstaver, er det på tide å lage en funksjon som håndterer
@@ -149,14 +115,16 @@ interaksjonen med databasen.
 
 Oppgave:
 
-1. Lag en funksjon `hentOppgave` i `OppgaveRepository.kt` som tar inn en `oppgaveId: Int` og returnerer en instans av
+1. Lag en SQL-spørring som henter ut en oppgave basert på dens ID.
+   Du kan gjerne teste spørringen i `Query Console` først.
+2. Lag en funksjon `hentOppgave` i `OppgaveRepository.kt` som tar inn en `oppgaveId: Int`, bruker SQL-spørringen fra
+   forrige steg og returnerer en instans av
    `Oppgave`.
-2. Lag en funksjon `gjettOrd` i `OppgaveService.kt` som tar inn to parametre:
+3. Lag en funksjon `gjettOrd` i `OppgaveService.kt` som tar inn to parametre:
     - oppgaveId: Int - Dette er ID-en til oppgaven som skal gjettes på.
     - ordGjettet: String - Dette er ordet som brukeren har gjettet
 
 som henter ut oppgaven fra databasen for den angitte `oppgaveId`en.
-
 Deretter skal funksjonen bruke `sjekkBokstavTreff`-funksjonen for å sjekke treffene på bokstavene i gjetningen
 og returnere en liste med `BokstavTreff`-objekter.
 
@@ -165,12 +133,21 @@ og returnere en liste med `BokstavTreff`-objekter.
 
 Oppgave 1:
 
+```sql
+SELECT *
+FROM OPPGAVE
+WHERE ID = :id
+```
+
+Oppgave 2:
+
 ```kotlin
-    fun hentOppgave(oppgaveId: Int): Oppgave {
+fun hentOppgave(oppgaveId: Int): Oppgave {
     return jdbcTemplate.query(
         """
-                |SELECT * FROM OPPGAVE
-                |WHERE ID = :id
+        SELECT *
+        FROM OPPGAVE
+        WHERE ID = :id
             """.trimMargin(),
         MapSqlParameterSource(
             mapOf(
@@ -233,7 +210,8 @@ Requestbody [her](https://docs.spring.io/spring-framework/reference/web/webflux/
 Oppgave:
 
 1. Lag en funksjon `gjettOrd` i `OppgaveController.kt` som tar inn en `GjettOrdRequest` og returnerer en
-   `GjettResponse`.
+   `GjettResponse`. Husk å konvertere den returnerte listen med `BokstavTreff`-objekter til `BokstavTreffDTO`-objekter
+   med `bokstavTreff.map { it.tilBokstavTreffDTO() }`.
 
 2. Omgjør denne funksjonen til å være et endepunkt med følgende spesifikasjoner:
     - Endepunktet skal ha URLen `/gjettOrd`.
@@ -247,14 +225,14 @@ Oppgave:
 Oppgave 1:
 
 ```kotlin
- fun gjettOrd(gjettOrdRequest: GjettOrdRequest): GjettResponse {
+fun gjettOrd(gjettOrdRequest: GjettOrdRequest): GjettResponse {
     val bokstavTreff = oppgaveService.gjettOrd(
         oppgaveId = gjettOrdRequest.oppgaveId,
         ordGjettet = gjettOrdRequest.ordGjett
     )
     val gjettResponse = GjettResponse(
         oppgaveId = gjettOrdRequest.oppgaveId,
-        alleBokstavtreff = bokstavTreff
+        alleBokstavtreff = bokstavTreff.map { it.tilBokstavTreffDTO() }
     )
     return gjettResponse
 }
@@ -271,7 +249,7 @@ fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): GjettResponse {
     )
     val gjettResponse = GjettResponse(
         oppgaveId = gjettOrdRequest.oppgaveId,
-        alleBokstavtreff = bokstavTreff
+        alleBokstavtreff = bokstavTreff.map { it.tilBokstavTreffDTO() }
     )
     return gjettResponse
 }
