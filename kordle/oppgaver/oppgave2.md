@@ -36,7 +36,7 @@ Oppgave:
 
 1. Lag en funksjon `sjekkBokstavTreff` i `OppgaveService.kt` som tar inn to parametere:
     - ordIOppgave: String - Dette er ordet som er riktig for oppgaven.
-    - ordGjettet: String- Dette er ordet som brukeren har gjettet.
+    - ordGjettet: String - Dette er ordet som brukeren har gjettet.
       Funksjonen skal returnere en liste med `BokstavTreff`-objekter som representerer treffene for hver bokstav i
       gjetningen.
 
