@@ -36,7 +36,8 @@ Oppgaver:
 
 1. Skriv en SQL-spørring som henter ut alle oppgaver fra tabellen `oppgave` i databasen.
    Du kan gjerne teste spørringen i `Query Console` først.
-2. Legg inn spørringen i funksjonen `hentAlleOppgaver`i `OppgaveRepository`-klassen som finnes [her](../server/src/main/kotlin/no/bekk/kordle/server/repository/OppgaveRepository.kt)
+2. Legg inn spørringen i funksjonen `hentAlleOppgaver`i `OppgaveRepository`-klassen som
+   finnes [her](../server/src/main/kotlin/no/bekk/kordle/server/repository/OppgaveRepository.kt)
 
 <details>
 <summary> Løsningsforslag </summary>
@@ -90,16 +91,23 @@ class EnAnnenService(
     }
 }
 ```
-Dette kan vi gjøre uten å måtte bry oss om hvordan `OppgaveRepository` er implementert eller hvordan den henter ut data fra. 
-Alt vi trenger å gjøre er å kaste `OppgaveRepository` inn i konstruktøren til `EnAnnenService`, og Spring vil håndtere resten for oss.
 
-Hvis du vil lese mer om dependency injection i Spring, kan du gjøre det [her](https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html).
+Dette kan vi gjøre uten å måtte bry oss om hvordan `OppgaveRepository` er implementert eller hvordan den henter ut data
+fra.
+Alt vi trenger å gjøre er å kaste `OppgaveRepository` inn i konstruktøren til `EnAnnenService`, og Spring vil håndtere
+resten for oss.
+
+Hvis du vil lese mer om dependency injection i Spring, kan du gjøre
+det [her](https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html).
 
 Oppgaver:
 
-1. I `OppgaveService.kt` (ligger [her](../server/src/main/kotlin/no/bekk/kordle/server/service/OppgaveService.kt)), dra inn `OppgaveRepository` som en dependency ved å legge den til som et parameter i klassen
+1. I `OppgaveService.kt` (ligger [her](../server/src/main/kotlin/no/bekk/kordle/server/service/OppgaveService.kt)), dra
+   inn `OppgaveRepository` som en dependency ved å legge den til som et parameter i klassen
    `OppgaveService`
-2. Lag en funksjon i `OppgaveService.kt` som henter ut alle oppgaver lagret i databasen og returnerer en tilfeldig oppgave. Returtypen til funksjonen skal være `Oppgave`, en klasse som ligger [her](../shared/src/main/kotlin/no/bekk/kordle/shared/dto/oppgave.kt).
+2. Lag en funksjon i `OppgaveService.kt` som henter ut alle oppgaver lagret i databasen og returnerer en tilfeldig
+   oppgave. Returtypen til funksjonen skal være `Oppgave`, en klasse som
+   ligger [her](../server/src/main/kotlin/no/bekk/kordle/server/domain/oppgave.kt).
 
 <details>
 <summary> Løsningsforslag </summary>
@@ -133,24 +141,33 @@ fun hentTilfeldigOppgave(): Oppgave {
 
 ## Oppgave 1.3: Api-endepunkter
 
-I denne oppgaven skal vi åpne opp et endepunkt for å bruke vår nye funksjonalitet, evnen til å hente ut en tilfeldig oppgave. 
-Dette vil la frontenden vår hente ut en tilfeldig oppgave fra serveren og vise den til brukeren. For å kunne gjøre dette, må vi lage et REST-endepunkt.
-På lik linje med hvordan vi brukte annotasjonen `@Service` for å fortelle Spring at `OppgaveService` er en tjeneste, bruker vi
-annotasjonen `@RestController` for å fortelle Spring at en klasse er en kontroller som håndterer HTTP-forespørsler med REST.
-I vår applikasjon har vi allerede opprettet en kontroller for oppgaver, `OppgaveController.kt`, som ligger [her](../server/src/main/kotlin/no/bekk/kordle/server/controller/OppgaveController.kt).
+I denne oppgaven skal vi åpne opp et endepunkt for å bruke vår nye funksjonalitet, evnen til å hente ut en tilfeldig
+oppgave.
+Dette vil la frontenden vår hente ut en tilfeldig oppgave fra serveren og vise den til brukeren. For å kunne gjøre
+dette, må vi lage et REST-endepunkt.
+På lik linje med hvordan vi brukte annotasjonen `@Service` for å fortelle Spring at `OppgaveService` er en tjeneste,
+bruker vi
+annotasjonen `@RestController` for å fortelle Spring at en klasse er en kontroller som håndterer HTTP-forespørsler med
+REST.
+I vår applikasjon har vi allerede opprettet en kontroller for oppgaver, `OppgaveController.kt`, som
+ligger [her](../server/src/main/kotlin/no/bekk/kordle/server/controller/OppgaveController.kt).
 
-For å kunne opprette et REST-endepunkt, må vi bruke først lage en funksjon i kontrolleren som kan håndtere forespørselen.
-Deretter må vi bruke annotasjonen `@GetMapping` for å fortelle Spring at denne funksjonen skal håndtere GET-forespørsler samt definere URL-en for endepunktet.
-Hvis ønskelig kan en lese mer om `@GetMapping` eller Requestmapping generelt i spring [her](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-requestmapping.html)
+For å kunne opprette et REST-endepunkt, må vi bruke først lage en funksjon i kontrolleren som kan håndtere
+forespørselen.
+Deretter må vi bruke annotasjonen `@GetMapping` for å fortelle Spring at denne funksjonen skal håndtere GET-forespørsler
+samt definere URL-en for endepunktet.
+Hvis ønskelig kan en lese mer om `@GetMapping` eller Requestmapping generelt i
+spring [her](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-requestmapping.html)
 
 Oppgaver:
 
-1. Lag en ny funksjon i `OppgaveController.kt` som henter ut en tilfeldig oppgave og returnerer en instans av typen `Oppgave`.
+1. Lag en ny funksjon i `OppgaveController.kt` som henter ut en tilfeldig oppgave og returnerer en instans av typen
+   `Oppgave`.
 2. Omgjør denne funksjonen til et GET-endepunkt ved å bruke annotasjonen `@GetMapping`. Endepunktet skal ha URLen
    `/hentTilfeldigOppgave`"
 
-
-Når du føler deg klar for å teste endepunktet, kan du kjøre opp backenden (hvis den ikke allerede er oppe) og deretter bruke
+Når du føler deg klar for å teste endepunktet, kan du kjøre opp backenden (hvis den ikke allerede er oppe) og deretter
+bruke
 følgende kommando i terminalen for å hente ut en tilfeldig oppgave:
 
 ```bash
@@ -186,16 +203,19 @@ da vi ikke nødvendigvis ønsker at klienten skal ha tilgang til all informasjon
 Dette er spesielt viktig når det kommer til sensitiv informasjon.
 
 Som vist ovenfor når en kjører `curl`-kommandoen, vil en se at endepunktet returnerer `Oppgave`-objektet i JSON-format,
-inkludert feltet `ord`, som er ordet som skal gjettes på. 
+inkludert feltet `ord`, som er ordet som skal gjettes på.
 
 Dette er litt uheldig, da det betyr at klienten får tilgang til ordet som skal gjettes på.
 Videre betyr dette også at dersom vi har behov for å endre på `Oppgave`-objektet i backend-applikasjonen,
 påvirker dette også dataen som sendes til klienten.
 
-Begge disse problemene kan løses ved å bruke Data Transfer Objects (DTOer). DTO-er er enkle klasser som kun inneholder data og skjermer
-både vår interne foretningslogikk samt sørger for at endringer i vår foretningslogikk ikke påvirker hvordan klienten mottar dataen.
+Begge disse problemene kan løses ved å bruke Data Transfer Objects (DTOer). DTO-er er enkle klasser som kun inneholder
+data og skjermer
+både vår interne foretningslogikk samt sørger for at endringer i vår foretningslogikk ikke påvirker hvordan klienten
+mottar dataen.
 
-Vi har laget en DTO `OppgaveResponse` (finnes [her](../shared/src/main/kotlin/no/bekk/kordle/shared/dto/oppgave.kt)) som ikke inneholder denne dataen.
+Vi har laget en DTO `OppgaveResponse` (finnes [her](../shared/src/main/kotlin/no/bekk/kordle/shared/dto/oppgave.kt)) som
+ikke inneholder denne dataen.
 
 Oppgaver:
 
