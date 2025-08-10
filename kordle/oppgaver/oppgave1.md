@@ -99,9 +99,7 @@ Oppgaver:
 
 1. I `OppgaveService.kt` (ligger [her](../server/src/main/kotlin/no/bekk/kordle/server/service/OppgaveService.kt)), dra inn `OppgaveRepository` som en dependency ved å legge den til som et parameter i klassen
    `OppgaveService`
-2. Lag en funksjon i `OppgaveService.kt` som henter ut alle oppgaver ved å bruke `oppgaveRepository.hentAlleOppgaver()`.
-   Videre skal en velge en tilfeldig oppgave fra listen med oppgaver og returnere et objekt av typen `Oppgave`
-   (Tips: En kan bruke `.random()`-funksjonen på en liste for å hente ut et tilfeldig element fra listen)
+2. Lag en funksjon i `OppgaveService.kt` som henter ut alle oppgaver lagret i databasen og returnerer en tilfeldig oppgave. Returtypen til funksjonen skal være `Oppgave`, en klasse som ligger [her](../shared/src/main/kotlin/no/bekk/kordle/shared/dto/oppgave.kt).
 
 <details>
 <summary> Løsningsforslag </summary>
