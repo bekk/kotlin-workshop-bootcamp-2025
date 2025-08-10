@@ -1,8 +1,8 @@
 package no.bekk.kordle.server.config
 
+import no.bekk.kordle.server.domain.Oppgave
 import no.bekk.kordle.shared.dto.HentFasitRequest
 import no.bekk.kordle.shared.dto.HentFasitResponse
-import no.bekk.kordle.shared.dto.Oppgave
 import org.springframework.jdbc.core.DataClassRowMapper
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate

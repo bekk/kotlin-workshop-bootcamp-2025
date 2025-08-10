@@ -8,24 +8,6 @@ data class OppgaveResponse(
     val lengde: Int,
 )
 
-data class Oppgave(
-    val id: Int,
-    val ord: String,
-    val lengde: Int,
-) {
-    fun tilOppgaveResponse(): OppgaveResponse {
-        return OppgaveResponse(
-            oppgaveId = this.id,
-            lengde = this.lengde
-        )
-    }
-}
-
-@Serializable
-data class LeggTilOrdRequest(
-    val ord: String
-)
-
 @Serializable
 data class GjettOrdRequest(
     val oppgaveId: Int,
@@ -36,18 +18,11 @@ data class GjettOrdRequest(
 @Serializable
 data class GjettResponse(
     val oppgaveId: Int,
-    val alleBokstavtreff: List<BokstavTreff>
+    val alleBokstavtreff: List<BokstavTreffDTO>
 )
 
-/**
- * Representerer treff på en bokstav i et ord.
- * @param plassISekvensen Indikerer posisjonen til bokstaven i ordet. Null-indeksert.
- * @param bokstavGjettet Bokstaven som ble gjettet.
- * @param erBokstavenIOrdet Indikerer om bokstaven finnes i ordet.
- * @param erBokstavenPaaRettsted Indikerer om bokstaven er på riktig sted i ordet.
- */
 @Serializable
-data class BokstavTreff(
+data class BokstavTreffDTO(
     val plassISekvensen: Int,
     val bokstavGjettet: Char,
     var erBokstavenIOrdet: Boolean,
