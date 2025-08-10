@@ -36,7 +36,7 @@ Oppgaver:
 
 1. Skriv en SQL-spørring som henter ut alle oppgaver fra tabellen `oppgave` i databasen.
    Du kan gjerne teste spørringen i `Query Console` først.
-2. Legg inn spørringen i funksjonen `hentAlleOppgaver` i `OppgaveRepository.kt`.
+2. Legg inn spørringen i funksjonen `hentAlleOppgaver`i `OppgaveRepository`-klassen som finnes [her](../server/src/main/kotlin/no/bekk/kordle/server/repository/OppgaveRepository.kt)
 
 <details>
 <summary> Løsningsforslag </summary>
@@ -77,6 +77,23 @@ andre komponenter som trenger den. Dette kalles <i>Dependency Injection</i> og e
 fungerer. I praksis betyr dette at vi kan bruke `OppgaveRepository` i andre komponenter uten å måtte opprette en instans
 av den
 selv og en kan heller la Spring håndtere dette for oss.
+
+I praksis betyr dette at vi kan bruke `OppgaveRepository` slik:
+
+```kotlin
+@Service
+class EnAnnenService(
+    private val oppgaveRepository: OppgaveRepository
+) {
+    fun brukOppgaveRepository() {
+        ...
+    }
+}
+```
+Dette kan vi gjøre uten å måtte bry oss om hvordan `OppgaveRepository` er implementert eller hvordan den henter ut data fra. 
+Alt vi trenger å gjøre er å kaste `OppgaveRepository` inn i konstruktøren til `EnAnnenService`, og Spring vil håndtere resten for oss.
+
+Hvis du vil lese mer om dependency injection i Spring, kan du gjøre det [her](https://docs.spring.io/spring-framework/reference/core/beans/dependencies/factory-collaborators.html).
 
 Oppgaver:
 
