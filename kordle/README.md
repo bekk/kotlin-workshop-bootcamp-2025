@@ -2,7 +2,11 @@
 
 Hei og velkommen til Kordle!
 Kordle er et spill inspirert [wordle](https://www.nytimes.com/games/wordle/index.html), hvor en gjetter på et tilfeldig
-valgt ord.
+valgt ord. I denne workshoppen skal vi lage en serverapplikasjon som håndterer forespørsler fra en klientapplikasjon
+som viser GUI-en for spillet.
+
+Alle oppgavene i denne workshoppen er laget for å bli løst innad i mappen som heter [server](./server) og oppgavene
+finner en i mappa [oppgaver](./oppgaver).
 
 ## Spillregler
 
@@ -111,54 +115,8 @@ curl -X GET http://localhost:8080/health
 ```
 
 Hvis du får en respons som sier `Kordle server is running`, så er serveren oppe og kjører som den skal!
-Om alt har gått knirkefritt så skal du nå være klar til å ta fatt på oppgavene! 🚀 Hvis ikke så rop ut, så kommer vi og
-hjelper! 🏃💨
+Om alt har gått knirkefritt så skal du nå være klar til å ta fatt på oppgavene! 🚀
 
-## Om prosjektet
+Hvis det skulle være noen problemer eller utfordringer er det bare å rope ut, så kommer vi og bistår! 🏃💨
 
-Prosjektet er delt inn i flere moduler, hver med sitt eget formål:
 
-- `server`: Backend-applikasjonen med spring. <b> Her er det oppgavene skal utføres </b>
-- `core`: Hovedmodulen som inneholder spilllogikken og er delt mellom alle
-- `lwjgl3`: Hovedmodulen for skrivebordsplattformen, bruker LWJGL3.
-- `shared`: En felles modul med [Data Transfer Objects (DTOs)](https://en.wikipedia.org/wiki/Data_transfer_object) som
-  deles mellom `core` og `server` plattformene.
-- `wordgeneration`: En modul for uthenting av gyldige ord fra en ekstern API, og generering av ordlister for bruk i
-  spillet.
-
-A [libGDX](https://libgdx.com/) project generated with [gdx-liftoff](https://github.com/libgdx/gdx-liftoff).
-
-This project was generated with a Kotlin project template that includes Kotlin application launchers
-and [KTX](https://libktx.github.io/) utilities.
-
-## Platforms
-
-- `core`: Main module with the application logic shared by all platforms.
-- `lwjgl3`: Primary desktop platform using LWJGL3; was called 'desktop' in older docs.
-- `server`: A separate application without access to the `core` module.
-- `shared`: A common module shared by `core` and `server` platforms.
-
-## Gradle
-
-This project uses [Gradle](https://gradle.org/) to manage dependencies.
-The Gradle wrapper was included, so you can run Gradle tasks using `gradlew.bat` or `./gradlew` commands.
-Useful Gradle tasks and flags:
-
-- `--continue`: when using this flag, errors will not stop the tasks from running.
-- `--daemon`: thanks to this flag, Gradle daemon will be used to run chosen tasks.
-- `--offline`: when using this flag, cached dependency archives will be used.
-- `--refresh-dependencies`: this flag forces validation of all dependencies. Useful for snapshot versions.
-- `build`: builds sources and archives of every project.
-- `cleanEclipse`: removes Eclipse project data.
-- `cleanIdea`: removes IntelliJ project data.
-- `clean`: removes `build` folders, which store compiled classes and built archives.
-- `eclipse`: generates Eclipse project data.
-- `idea`: generates IntelliJ project data.
-- `lwjgl3:jar`: builds application's runnable jar, which can be found at `lwjgl3/build/libs`.
-- `lwjgl3:run`: starts the application.
-- `server:run`: runs the server application.
-- `test`: runs unit tests (if any).
-
-Note that most tasks that are not specific to a single project can be run with `name:` prefix, where the `name` should
-be replaced with the ID of a specific project.
-For example, `core:clean` removes `build` folder only from the `core` project.

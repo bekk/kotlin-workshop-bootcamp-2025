@@ -1,4 +1,4 @@
-# Hent en tilfeldig oppgave
+# Oppgave 1: Hent en tilfeldig oppgave
 
 For at vår appliaksjon skal fungere, må vi kunne hente ut et ord som brukeren kan gjette på.
 I denne workshoppen har vi opprettet en database med ord som en kan gjette på i Kordle. Disse ordene er lagret i
@@ -10,21 +10,28 @@ Disse ordene kan sees ved å
 
 <img src="../images/oppgave1/database_button.png" width="60%" />
 
-3. Trykke på `H2` -> `MYDB` -> `PUBLIC` -> `tables` -> `OPPGAVE`
-4. Her vil en se at tabellen består av følgende kolonner:
+3. Hvis dropdown-menyen for `H2` ikke kommer opp, høyreklikk på `H2` og trykk på `Refresh`. Hvis dropdown-menyen kommer
+   opp, kan du bare ignorere dette punktet.
+
+4. Trykk deretter på `H2` -> `MYDB` -> `PUBLIC` -> `tables` -> `OPPGAVE`
+
+   <img src="../images/oppgave1/database_tables.png" width="60%" />
+
+
+5. Her vil en se at `oppgave`-tabellen består av følgende kolonner:
     - `id` - ID-en til oppgaven
     - `ord` - Ordet som skal gjettes på
     - `lengde` - Lengden på ordet
 
-5. Ved å høyreklikke på `H2` og trykke på `New`-> `Query Console` kan en skrive SQL-spørringer for å hente ut data fra
-   databasen.
+6. Ved å høyreklikke på `H2` og trykke på `New`-> `Query Console` kan en skrive SQL-spørringer for å hente ut data fra
+   databasen. Dette kan være nyttig for teste og eksperimentere med SQL-spørringer før en legger dem inn i koden.
 
    <img src="../images/oppgave1/query_console.png" width="60%" />
 
 ## Oppgave 1.1 Hent ut alle oppgaver fra databasen
 
-I denne oppgaven skal vi hente ut alle oppgavene fra databasen ved hjelp av en SQL-spørring. Les mer om SQL-spørringer
-her: https://www.w3schools.com/sql/sql
+I denne oppgaven skal vi hente ut alle oppgavene fra databasen ved hjelp av en SQL-spørring. Hvis du vil lese mer om
+sql-spørringer, kan du gjøre dette [her](https://www.w3schools.com/sql/sql)
 
 Oppgaver:
 
@@ -34,6 +41,15 @@ Oppgaver:
 
 <details>
 <summary> Løsningsforslag </summary>
+
+Oppgave 1:
+
+```sql
+SELECT *
+FROM OPPGAVE
+```
+
+Oppgave 2:
 
 ```kotlin
 fun hentAlleOppgaver(): List<Oppgave> {
