@@ -503,3 +503,9 @@ MERGE INTO
         ('munk'),
         ('spilt'),
         ('drift');
+
+INSERT INTO KORDLEUSER (USERNAME)
+SELECT 'tester'
+    WHERE NOT EXISTS (
+    SELECT 1 FROM KORDLEUSER WHERE USERNAME = 'tester'
+);

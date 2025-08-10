@@ -15,14 +15,12 @@ oppgave.
 Videre har en også en fil som inneholder DTO-er for brukere og oppgave-resultater
 i [her](../shared/src/main/kotlin/no/bekk/kordle/shared/dto/user.kt).
 
-## Endepunkter som må implementeres
-
-### `/users` (GET)
+## Endepunkt 1: `/users` (GET)
 
 Forventet funksjonalitet: : Henter en bruker basert på et brukernavn. Hvis brukeren eksisterer, retureres en instans av
 `User`, ellers returneres `null`.
 
-#### Api-spesifikasjon
+### Api-spesifikasjon
 
 Query-parametre:
 
@@ -33,11 +31,18 @@ Returtype: `User?`
 Query-parametre i spring kan leses mer
 om [her](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/requestparam.html)
 
-### `/users` (POST)
+Du kan teste dette endepunktet ved å bruke følgende kommando i terminalen:
 
-Forventet funksjonalitet: : Registrerer en ny bruker med et gitt brukernavn.
+```bash
+curl -X GET "http://localhost:8080/users?username=tester" -s -w "\nHTTP Status: %{http_code}\n"
+```
 
-#### Api-spesifikasjon
+## Endepunkt 2: `/users` (POST)
+
+Forventet funksjonalitet: : Registrerer en ny bruker med et gitt brukernavn og returnerer den opprettede brukeren. Hvis
+brukeren allerede eksisterer, returneres den eksisterende brukeren.
+
+### Api-spesifikasjon
 
 HTTP message body:
 
@@ -45,11 +50,17 @@ HTTP message body:
 
 Returtype: `User`
 
-### `/users/{userId}/stats` (GET)
+Du kan teste dette endepunktet ved å bruke følgende kommando i terminalen:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"username": "tester2"}' http://localhost:8080/users -s -w "\nHTTP Status: %{http_code}\n"
+```
+
+## Endepunkt 3: `/users/{userId}/stats` (GET)
 
 Forventet funksjonalitet: : Henter statistikk for en bruker basert på et brukernavn.
 
-#### Api-spesifikasjon
+### Api-spesifikasjon
 
 Path-parameters:
 
@@ -60,11 +71,17 @@ Returtype: `StatsForUser`
 Path parameters i spring kan leses mer
 om [her](https://www.baeldung.com/spring-pathvariable)
 
-### `/result` (POST)
+Du kan teste dette endepunktet ved å bruke følgende kommando i terminalen:
+
+```bash
+curl -X GET -H "Content-Type: application/json" http://localhost:8080/users/1/stats -s -w "\nHTTP Status: %{http_code}\n"
+```
+
+## Endepunkt 4: `/result` (POST)
 
 Forventet funksjonalitet: : Registrerer resultatet av en oppgave for en bruker og returnerer statistikk for brukeren.
 
-#### Api-spesifikasjon
+### Api-spesifikasjon
 
 HTTP message body:
 
@@ -72,9 +89,14 @@ HTTP message body:
 
 Returtype: `StatsForUser`
 
+Du kan teste dette endepunktet ved å bruke følgende kommando i terminalen:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"userId": 1, "oppgaveId": 2, "success": "true", "attemptCount": 2}' http://localhost:8080/result -s -w "\nHTTP Status: %{http_code}\n"
+```
 
 <details>
-<summary> Løsningsforslag for `/users` (GET) </summary>
+<summary> Løsningsforslag for Endepunkt 1: `/users` (GET) </summary>
 
 I `UserController.kt`:
 
@@ -122,7 +144,7 @@ fun getUserByUsername(username: String): User? {
 </details>
 
 <details>
-<summary> Løsningsforslag for `/users` (POST) </summary>
+<summary> Løsningsforslag for Endepunkt 2: `/users` (POST) </summary>
 
 I `UserController.kt`:
 
@@ -146,12 +168,13 @@ fun createUser(username: String): User {
 I `UserRepository.kt`:
 
 ```kotlin
-fun createUser(username: String) {
+    fun createUser(username: String) {
     val sql = """
-        INSERT INTO
-            KordleUser (Username)
-        VALUES
-            (:username);
+            INSERT INTO KordleUser (Username)
+            SELECT :username
+            WHERE NOT EXISTS (
+                SELECT 1 FROM KordleUser WHERE Username = :username
+            );
     """.trimIndent()
 
     jdbcTemplate.update(
@@ -162,7 +185,7 @@ fun createUser(username: String) {
 ```
 
 <details>
-<summary> Løsningsforslag for `/users/{userId}/stats` (GET) </summary>
+<summary> Løsningsforslag for Endepunkt 3: `/users/{userId}/stats` (GET) </summary>
 
 I `UserController.kt`:
 
@@ -195,7 +218,7 @@ class UserService(
 }
 ```
 
-I `UserRepository.kt`:
+I `UserOppgaveResultRepository.kt`:
 
 ```kotlin
 fun getResultsByUserId(userId: Int): List<UserOppgaveResult> {
@@ -218,7 +241,7 @@ fun getResultsByUserId(userId: Int): List<UserOppgaveResult> {
 
 
 <details>
-<summary> Løsningsforslag for `/result` (POST) </summary>
+<summary> Løsningsforslag for Endepunkt 4: `/result` (POST) </summary>
 
 I `UserController.kt`:
 
@@ -245,7 +268,7 @@ fun registerResult(
 }
 ```
 
-I `UserRepository.kt`:
+I `UserOppgaveResultRepository.kt`:
 
 ```kotlin
 fun create(
@@ -274,8 +297,4 @@ fun create(
 ```
 
 </details>
-
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"username": "test"}' http://localhost:8080/users
-```
 
