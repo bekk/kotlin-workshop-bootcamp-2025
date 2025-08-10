@@ -220,3 +220,19 @@ fun gjettOrd(@RequestBody gjettOrdRequest: GjettOrdRequest): ResponseEntity<*> {
 ```
 
 </details>
+
+
+🧪 Når du er ferdig, kan du kjøre opp backenden og kjøre disse kommandoene i terminalen for å teste at alt fungerer som
+forventet:
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"oppgaveId": 1, "ordGjett": "testtt"}' -s http://localhost:8080/gjettOrd 
+```
+
+Her skal du få tilbake feilmeldingen du skrev for `GjettetErIkkeIOrdlistaException`.
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"oppgaveId": 2, "ordGjett": "test"}' http://localhost:8080/gjettOrd
+```
+
+Her skal du få tilbake feilmeldingen du skrev for `GjettetErIkkeIOrdlistaException`.
