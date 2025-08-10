@@ -15,14 +15,12 @@ oppgave.
 Videre har en også en fil som inneholder DTO-er for brukere og oppgave-resultater
 i [her](../shared/src/main/kotlin/no/bekk/kordle/shared/dto/user.kt).
 
-## Endepunkter som må implementeres
-
-### `/users` (GET)
+## Endepunkt 1: `/users` (GET)
 
 Forventet funksjonalitet: : Henter en bruker basert på et brukernavn. Hvis brukeren eksisterer, retureres en instans av
 `User`, ellers returneres `null`.
 
-#### Api-spesifikasjon
+### Api-spesifikasjon
 
 Query-parametre:
 
@@ -33,11 +31,11 @@ Returtype: `User?`
 Query-parametre i spring kan leses mer
 om [her](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-controller/ann-methods/requestparam.html)
 
-### `/users` (POST)
+## Endepunkt 2: `/users` (POST)
 
 Forventet funksjonalitet: : Registrerer en ny bruker med et gitt brukernavn.
 
-#### Api-spesifikasjon
+### Api-spesifikasjon
 
 HTTP message body:
 
@@ -45,11 +43,11 @@ HTTP message body:
 
 Returtype: `User`
 
-### `/users/{userId}/stats` (GET)
+## Endepunkt 3: `/users/{userId}/stats` (GET)
 
 Forventet funksjonalitet: : Henter statistikk for en bruker basert på et brukernavn.
 
-#### Api-spesifikasjon
+### Api-spesifikasjon
 
 Path-parameters:
 
@@ -60,18 +58,17 @@ Returtype: `StatsForUser`
 Path parameters i spring kan leses mer
 om [her](https://www.baeldung.com/spring-pathvariable)
 
-### `/result` (POST)
+## Endepunkt 4: `/result` (POST)
 
 Forventet funksjonalitet: : Registrerer resultatet av en oppgave for en bruker og returnerer statistikk for brukeren.
 
-#### Api-spesifikasjon
+### Api-spesifikasjon
 
 HTTP message body:
 
 - En instans av `UserOppgaveResult`
 
 Returtype: `StatsForUser`
-
 
 <details>
 <summary> Løsningsforslag for `/users` (GET) </summary>
