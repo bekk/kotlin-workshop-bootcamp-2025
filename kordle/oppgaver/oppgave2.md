@@ -10,16 +10,17 @@ I denne opppgaven skal vi utvide `OppgaveService.kt` til å kunne håndtere gjet
 
 ## Oppgave 2.1: Sjekk bokstavgjett
 
-I fila [oppgave.kt](../shared/src/main/kotlin/no/bekk/kordle/shared/dto/oppgave.kt) finner du en klasse:
+I fila [oppgave.kt](../shared/src/main/kotlin/no/bekk/kordle/shared/dto/oppgave.kt) finner du denne denne klassen:
 
 ```kotlin
-@Serializable
 data class BokstavTreff(
     val plassISekvensen: Int,
     val bokstavGjettet: Char,
     var erBokstavenIOrdet: Boolean,
     val erBokstavenPaaRettsted: Boolean
-)
+){
+    ...
+}
 ```
 
 Denne klassen representerer et treff på en bokstav i et ord.
