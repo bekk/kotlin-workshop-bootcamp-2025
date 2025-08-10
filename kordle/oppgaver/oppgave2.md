@@ -10,7 +10,16 @@ I denne opppgaven skal vi utvide `OppgaveService.kt` til å kunne håndtere gjet
 
 ## Oppgave 2.1: Sjekk bokstavgjett
 
-I fila [oppgave.kt](../server/src/main/kotlin/no/bekk/kordle/server/domain/oppgave.kt) finner du denne denne klassen:
+Før vi kan begynne å gjette på ord, må vi lage en funksjon som kan ta inn et gjettet ord fra klienten og sammenligne det
+med det riktige ordet.
+Basert på denne sammenligningen må vi kunne gi en tilbakemelding på:
+
+- Hvilke bokstaver eksisterer i ordet og er plassert på riktig plass
+- Hvilke bokstaver eksisterer i ordet, men er ikke plassert på riktig plass
+- Hvilke bokstaver ikke eksisterer i ordet.
+
+I fila [oppgave.kt](../server/src/main/kotlin/no/bekk/kordle/server/domain/oppgave.kt) finner du denne denne klassen som
+skal representere dette:
 
 ```kotlin
 data class BokstavTreff(
@@ -23,8 +32,6 @@ data class BokstavTreff(
 }
 ```
 
-Denne klassen representerer et treff på en bokstav i et ord.
-
 Oppgave:
 
 1. Lag en funksjon `sjekkBokstavTreff` i `OppgaveService.kt` som tar inn to parametere:
@@ -35,7 +42,7 @@ Oppgave:
 
 OBS:
 
-- Husk spillregelen om at en bokstav kan ha flere treff i et ord, men at en skal bare gi tilbakemelding lik antall
+- Husk spilleregelen om at en bokstav kan ha flere treff i et ord, men at en skal bare gi tilbakemelding lik antall
   bokstaver med treff i gjetningen.
 
 <details>
