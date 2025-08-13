@@ -126,7 +126,7 @@ Oppgaver:
 
 Åpne filen i introduction som heter [Nullability.kt](introduction/src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
 
-1. Kjør `main`-funksjonen. Hva skjer og hvorfor?
+1. Kjør `main`-funksjonen. Hva skjer og hvorfor? (PS: Det kan være du må trykke på den øverste røde "error"-sirkelen og scrolle opp i terminalen for å se feilen :) )
 2. Kommenter ut kodelinje 8 og bytt ut typen på parameteret `streng` fra `String?` til `String`. Hva skjer når du kjører `main`-funksjonen nå? Hvorfor må vi kommentere ut kodelinje 8?
 3. Skriv en funksjon som tar inn et parameter av typen `String?` og returnerer lengden dersom strengen ikke er null. Dersom den er null, skal funksjonen returnere `null`.
 4. Skriv en funksjon som tar inn et parameter av typen `String?` og returnerer lengden dersom strengen ikke er null. Dersom den er null, skal funksjonen returnere tallet 0.
@@ -184,7 +184,7 @@ Oppgaver:
    - `navn`: String
    - `aarIBekk`: Int
    - `favorittaktivitet`: String
-2. Lag en funksjon i `Coach`-klassen som heter `skrivUtInfo` som skriver ut navnet, antall år i Bekk og hva favorittaktivitet er deres favorittaktivitet.
+2. Lag en funksjon i `Coach`-klassen som heter `skrivUtInfo` som skriver ut navnet, antall år i Bekk og hva deres favorittaktivitet er.
 
 
 <details><summary> Løsningsforslag 🤠 </summary>
@@ -221,7 +221,7 @@ Dette gjør at sammenligning av objekter blir enklere, og at du kan lage kopier 
 
 Oppgaver:
 
-Åpne filen i introduction som heter [DataClass.kt](introduction/src/main/kotlin/no/bekk/introduction/DataClass.kt). Her ligger det en klasse som heter `Konsulent`, og en main funksjon.
+Åpne filen i introduction som heter [DataClass.kt](introduction/src/main/kotlin/no/bekk/introduction/DataClass.kt). Her ligger det en klasse som heter `Konsulent` og en main funksjon.
 
 1. Kjør main funksjonen, og se hva som skjer.
 2. Gjør `Konsulent` om til en `data class` og kjør main funksjonen igjen. Hvilke to forskjeller ser du ser du i konsollutskriften? Hvorfor er det slik? 
