@@ -6,26 +6,30 @@ databasetabellen `oppgave`.
 Disse ordene kan sees ved å
 
 1. Kjøre opp backend-applikasjonen.
-2. Trykke på `database`-fanen helt til høyre i Intellij.
+2. Gå inn på http://localhost:8080/h2-console i nettleseren din. Dette vil åpne opp H2-konsollen.
+3. Logge inn med følgende innstillinger:
+    - Saved Settings: `Generic H2 (Server)`
+    - JDBC URL: `jdbc:h2:tcp://10.242.157.32:9090/./database/mydb`
+    - User Name : `SA` (All caps)
+    - Password: `PASSWORD` (All caps)
 
-<img src="../images/oppgave1/database_button.png" width="60%" />
+Instillingene skal se slik ut:
 
-3. Hvis dropdown-menyen for `H2` ikke kommer opp, høyreklikk på `H2` og trykk på `Refresh`. Hvis dropdown-menyen kommer
-   opp, kan du bare ignorere dette punktet.
+<img src="../images/oppgave1/img.png" width="60%" />
 
-4. Trykk deretter på `H2` -> `MYDB` -> `PUBLIC` -> `tables` og til slutt dobbeltklikk på `OPPGAVE`
+Deretter trykker du på `Connect`-knappen.
 
-   <img src="../images/oppgave1/database_tables.png" width="60%" />
+4. Når du er inne i H2-konsollen, vil se en liste over tabeller i databasen. Trykk på pluss-tegnet ved siden av
+   `Oppgave` for å se de forskjellige kolonnene i tabellen.
 
 5. Her vil en se at `oppgave`-tabellen består av følgende kolonner:
     - `id` - ID-en til oppgaven
     - `ord` - Ordet som skal gjettes på
     - `lengde` - Lengden på ordet
 
-6. Ved å høyreklikke på `H2` og trykke på `New`-> `Query Console` kan en skrive SQL-spørringer for å hente ut data fra
-   databasen. Dette kan være nyttig for teste og eksperimentere med SQL-spørringer før en legger dem inn i koden.
-
-   <img src="../images/oppgave1/query_console.png" width="60%" />
+6. I midten av skjermen vil du se en `Query Console` der du kan skrive SQL-spørringer for å hente ut data fra databasen.
+   Når spørringen er skrevet, kan du trykke på
+   `Run`-knappen for å kjøre spørringen. Resultatet av spørringen vil vises i tabellen under `Query Console`.
 
 ## Oppgave 1.1: Hent ut alle oppgaver fra databasen
 
