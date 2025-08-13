@@ -2,14 +2,16 @@
 
 Du kan finne en presentasjonen som hører til workshopen under [docs](docs).
 
-Denne workshopen er delt inn i to deler: den første delen gir deg en generell introduksjon til noen viktige konsepter i Kotlin, før vi skal lage et spill i del to! Dersom du har vært borti Kotlin før, må du gjerne hoppe over del en.
+Denne workshopen er delt inn i to deler: den første delen gir deg en generell introduksjon til noen viktige konsepter i Kotlin, før vi videre skal bli litt mer kjent med backend-utvikling og spring.
 
 Og ikke glem, bruk coachene og kollegaene dine aktivt! Vi er her for å hjelpe 🚀
 
 ## Variabler
 
 Kotlin har to nøkkelord for å definere variabler: `val` og `var`. 
-`val` brukes for å definere en variabel som ikke kan endres etter at den er opprettet, altså en konstant. 
+
+`val` brukes for å definere en variabel som ikke kan endres etter at den er opprettet, altså en konstant.
+
 `var` brukes for å definere en variabel som kan endres.
 
 Oppgaver:
