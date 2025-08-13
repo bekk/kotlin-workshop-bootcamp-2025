@@ -20,7 +20,7 @@ Oppgaver:
 
 1. Prøv å kjøre `main`-funksjonen. Hva får du ut i konsollen?
 2. Bytt ut `var` med `val` på linje 4, og kjør `main`-funksjonen igjen. Hva skjer nå? Hvorfor er dette ikke lov?
-3. Skriv om koden slik at du fortsatt får samme utskrift som i del 1, uten å bruke `var` på linje 4.
+3. Skriv om koden slik at du fortsatt får samme utskrift som i del 1, uten å bruke `var` på linje 4. (Hint: Det er lov å definere nye `values` basert på tidligere values)
 
 <details><summary> Løsningsforslag 🤠 </summary>
 
@@ -32,6 +32,7 @@ Verdien til tall1 pluss 1 delt på to er: 1
 ```
 
 2. Koden kompilerer ikke lengre og en får en feilmelding som sier at `val` ikke kan endres. Dette er fordi `val` kan ikke defineres på ny etter at den har blitt definert.
+
 3. Løsningsforslag:
 ```kotlin
 val tall1 = 1
