@@ -251,8 +251,8 @@ I Kotlin er man ofte opptatt av `mutability` og `immutability`, eller "muterbarh
 Disse konseptene referer til hvorvidt dataen i et objekt kan endres etter at det objektet har blitt opprettet.
 En stor fordel med å gjøre ting `immutable` er at koden kan bli mer lesbar og lettere å debugge. Eksempler på hvordan dette kommer frem er:
 
-1. Ett ikke-muterbart objekt du bruker kan du alltids være sikker på at ikke kommer til å endre seg og kan heller ikke bli endret noe annet sted i koden. Dette reduserer utilsiktede utfall da det er vanskeligere å påvirke annen funksjonalitet ved "uhell" dersom den funksjonaliteten også bruker samme data.  
-2. En kan alltids spore verdier tilbake til der de ble opprettet. Dette gjør det lettere å forstå hvor i koden en verdi ble opprettet og hvor den har blitt brukt og hvor den skal brukes videre.
+1. Ett ikke-muterbart objekt du bruker kan du alltids være sikker på at ikke kommer til å endre seg et annet sted i koden. Dette reduserer utilsiktede utfall da det er vanskeligere å påvirke annen funksjonalitet ved "uhell" dersom den funksjonaliteten også bruker samme data.  
+2. En kan alltids spore verdier tilbake til der de ble opprettet. Dette gjør det lettere å forstå hvor i koden en verdi ble opprettet, hvor den har blitt brukt og hvor den skal brukes videre.
 
 I standardbiblioteket til Kotlin skiller man på datastrukturer som er muterbare og de som ikke er det. F.eks:
 det finnes både `List<T>` og `MutableList<T>`. Begge disse typene er lister, men typen `List` er ikke-muterbar og lar deg dermed ikke legge til eller fjerrne
@@ -291,8 +291,8 @@ Oppgaver:
 Din oppgave er å få skrevet ut en liste med tallene fra lista `viktigeTall` men med tallet 4 lagt på slutten.
 Dette skal da gjøres uten å endre på hvordan funksjonen `funkSjonalitetSomIkkeLikerTalletFire` fungerer.
 
-1. Kommenter inn linja `skrivUtTallListeMedFire(viktigeTall)` og kjør koden. Hvorfor kræsjer koden? 
-2. Skriv om koden i funksjonen `skrivUtTallListeMedFire` slik at du ikke endrer verdiene i lista `viktigeTall` men fortsatt får skrevet ut lista med tallet 4 på slutten.
+1. Kommenter inn linja `skrivUtTallListeOgTalletFire(viktigeTall)` og kjør koden. Hvorfor kræsjer koden? 
+2. Skriv om koden i funksjonen `skrivUtTallListeOgTalletFire` slik at du ikke endrer verdiene i lista `viktigeTall` men fortsatt får skrevet ut lista med tallet 4 på slutten.
 
 
 <details><summary>Løsningsforslag 🤠</summary>
@@ -309,13 +309,13 @@ val sondre = patrick.copy(name = "Sondre")
 println(sondre) // -> Person(name=Sondre, age=27)
 ```
 
-Koden kræsjer fordi vi legger til tallet 4 i den muterbare lista `viktigeTall` i funksjonen `skrivUtTallListeMedFire`.
+Koden kræsjer fordi vi legger til tallet 4 i den muterbare lista `viktigeTall` i funksjonen `skrivUtTallListeOgTalletFire`.
 Dette fører til at koden kræsjer i funksjonen `funkSjonalitetSomIkkeLikerTalletFire`, da den funksjonen ikke krever at lista ikke kan ikkeholde tallet 4. 
 
 Løsningsforslag til oppgave 2:
 
 ```kotlin
-fun skrivUtTallListeMedFire(viktigeTall: MutableList<Int>) {
+fun skrivUtTallListeOgTalletFire(viktigeTall: MutableList<Int>) {
   val viktigeTallMedFire = viktigeTall + 4 // Lager en kopi av lista uten å endre på den originale lista.
   println(viktigeTallMedFire) // -> [1, 2, 3, 4]
 }
