@@ -38,6 +38,7 @@ class GameOver(
             label("Ny oppgave", "small")
             color = BekkColors.Vann1
             onClick {
+                stage.draw()
                 getTilfeldigOppgave(
                     onSuccess = { oppgaveResponse ->
                         controller.currentOppgave = oppgaveResponse

@@ -53,6 +53,7 @@ class OnScreenKeyboard(private val parent: KTableWidget, private val controller:
                 }
             }
         }
+        parent.row()
         parent.table {
             button {
                 label("Gi opp", "small")

@@ -10,10 +10,10 @@ import no.bekk.kordle.Main
 fun main() {
     // This handles macOS support and helps on Windows.
     if (StartupHelper.startNewJvmIfRequired())
-      return
+        return
     Lwjgl3Application(Main(), Lwjgl3ApplicationConfiguration().apply {
         setTitle("Kordle")
-        setWindowedMode(640, 480)
+        setWindowedMode(640, 640)
         setWindowIcon(*(arrayOf(128, 64, 32, 16).map { "libgdx$it.png" }.toTypedArray()))
     })
 }
