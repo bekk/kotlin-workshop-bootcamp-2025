@@ -317,10 +317,10 @@ Denne gir deg muligheten til å lage en kopi av et objekt med noen av feltene en
 uendret.
 
 ```kotlin
-val patrick = Person(name = "Patrick", age = 27)
+val patrick = Person(name = "Patrick", age = 28)
 
 val eldrePatrick =
-    patrick.copy(age = 28) // Dette lager en kopi av `patrick` som er 28 år gammel, men beholder navnet "Patrick".
+    patrick.copy(age = 29) // Dette lager en kopi av `patrick` som er 29 år gammel, men beholder navnet "Patrick".
 
 ```
 
@@ -346,14 +346,14 @@ Dette skal da gjøres uten å endre på hvordan funksjonen `funkSjonalitetSomIkk
 
 Løsningsforslag til oppgave 1:
 
-Linja `patrick.name = "Sondre"` er ikke lov fordi `name` er definert som en ikke-muterbar verdi med nøkkelordet `val` og
+Linja `patrick.name = "Espen"` er ikke lov fordi `name` er definert som en ikke-muterbar verdi med nøkkelordet `val` og
 kan dermed ikke endres etter at objektet er opprettet.
 
 ```kotlin
-val patrick = Person("Patrick", 27)
-val sondre = patrick.copy(name = "Sondre")
+val patrick = Person("Patrick", 28)
+val espen = patrick.copy(name = "Espen")
 
-println(sondre) // -> Person(name=Sondre, age=27)
+println(espen) // -> Person(name=Espen, age=28)
 ```
 
 Koden kræsjer fordi vi legger til tallet 4 i den muterbare lista `viktigeTall` i funksjonen
@@ -470,10 +470,10 @@ Oppgave:
 
 Åpne filen som heter [HighOrderFunction.kt](introduction/src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
 
-1. Bruk `coacher2025`-listen, og bruk lambdafunksjon(er) for å finne ut hvor mange år alle coachene i 2025 har jobbet i
+1. Bruk `coacher2026`-listen, og bruk lambdafunksjon(er) for å finne ut hvor mange år alle coachene i 2026 har jobbet i
    Bekk.
-2. Bruk `coacher2025`-listen, og lag en liste for coachene som er i teknologi-avdelingen.
-3. Bruk `coacher2025`-listen, og skriv kode for å lage en kopi av lista hvor Frikk er i BMC-avdelingen og Sivert er i
+2. Bruk `coacher2026`-listen, og lag en liste for coachene som er i teknologi-avdelingen.
+3. Bruk `coacher2026`-listen, og skriv kode for å lage en kopi av lista hvor Frikk er i BMC-avdelingen og Sivert er i
    Design-avdelingen.
 
 Bruk main-funksjonen til å sjekke at du får riktig resultat.
@@ -481,11 +481,11 @@ Bruk main-funksjonen til å sjekke at du får riktig resultat.
 <details><summary> Løsningsforslag 🤠 </summary>
 
 ```kotlin
-val antallAarIBekk = coacher2025.map { it.aarIBekk }.reduce { aarIBekk1, aarIBekk2 -> aarIBekk1 + aarIBekk2 }
+val antallAarIBekk = coacher2026.map { it.aarIBekk }.reduce { aarIBekk1, aarIBekk2 -> aarIBekk1 + aarIBekk2 }
 
-val teknologiCoacher = coacher2025.filter { it.avdeling == Avdeling.TEKNOLOGI }
+val teknologiCoacher = coacher2026.filter { it.avdeling == Avdeling.TEKNOLOGI }
 
-val endredeCoacher = coacher2025.map { coach ->
+val endredeCoacher = coacher2026.map { coach ->
     when (coach.name) {
         "Frikk" -> coach.copy(avdeling = Avdeling.BMC)
         "Sivert" -> coach.copy(avdeling = Avdeling.DESIGN)

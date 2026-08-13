@@ -12,85 +12,103 @@ enum class Avdeling {
 val august = BootcampCoach(
     "August",
     Avdeling.TEKNOLOGI,
-    4,
+    5,
 )
 
 val aurora = BootcampCoach(
     "Aurora",
     Avdeling.DESIGN,
-    7,
+    8,
 )
 
-val bendik = BootcampCoach(
+val eirik = BootcampCoach(
     "Bendik",
     Avdeling.BMC,
-    4,
+    2,
 )
 
 val frikk = BootcampCoach(
     "Frikk",
     Avdeling.TEKNOLOGI,
-    4,
+    5,
 )
 
-val gabriel = BootcampCoach(
-    "Gabriel",
+val haavard = BootcampCoach(
+    "Håvard",
     Avdeling.TEKNOLOGI,
-    4,
+    8,
 )
 
 val hanna = BootcampCoach(
     "Hanna",
-    Avdeling.TEKNOLOGI,
-    4,
+    Avdeling.DESIGN,
+    2,
 )
 
 val hansKristian = BootcampCoach(
     "Hans Kristian",
     Avdeling.TEKNOLOGI,
-    9,
+    10,
 )
 
 val ingrid = BootcampCoach(
     "Ingrid",
     Avdeling.TEKNOLOGI,
-    5,
+    6,
+)
+
+val johannes = BootcampCoach(
+    "Johannes",
+    Avdeling.TEKNOLOGI,
+    3,
+)
+
+val karen = BootcampCoach(
+    "Karen",
+    Avdeling.TEKNOLOGI,
+    3,
 )
 
 val kristin = BootcampCoach(
     "Kristin",
     Avdeling.DESIGN,
-    3,
-)
-
-val morten = BootcampCoach(
-    "Morten",
-    Avdeling.BMC,
-    6,
+    4,
 )
 
 val oleReidar = BootcampCoach(
     "Ole Reidar",
     Avdeling.TEKNOLOGI,
-    7,
+    8,
 )
 
 val sara = BootcampCoach(
     "Sara",
     Avdeling.TEKNOLOGI,
-    3,
+    4,
 )
 
 val sivert = BootcampCoach(
     "Sivert",
     Avdeling.TEKNOLOGI,
-    4,
+    5,
+)
+
+val sofie = BootcampCoach(
+    "Sofie",
+    Avdeling.BMC,
+    6,
+)
+
+val tuva = BootcampCoach(
+    "Tuva",
+    Avdeling.TEKNOLOGI,
+    3,
 )
 
 val vilde = BootcampCoach(
     "Vilde",
     Avdeling.DESIGN,
-    2,
+    3,
 )
 
-val coacher2025 = listOf<BootcampCoach>(august, aurora, bendik, frikk, gabriel, hanna, hansKristian, ingrid, kristin, morten, oleReidar, sara, sivert, vilde)
+val coacher2026 = listOf<BootcampCoach>(august, aurora, eirik, frikk, haavard, hanna, hansKristian, ingrid, karen, kristin, johannes, oleReidar, sara, sivert, sofie, tuva, vilde)

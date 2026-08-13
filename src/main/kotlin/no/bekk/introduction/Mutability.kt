@@ -5,8 +5,8 @@ data class Person(val name: String, val age: Int)
 
 fun main() {
     // Oppgave 1
-    val patrick = Person("Patrick", 27)
-    //patrick.name = "Sondre"
+    val patrick = Person("Patrick", 28)
+    //patrick.name = "Espen"
 
     // Oppgave 2:
     val viktigeTall = mutableListOf(1, 2, 3)
