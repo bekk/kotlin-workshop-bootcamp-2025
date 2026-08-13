@@ -22,7 +22,7 @@ val aurora = BootcampCoach(
 )
 
 val eirik = BootcampCoach(
-    "Bendik",
+    "Eirik",
     Avdeling.BMC,
     2,
 )
