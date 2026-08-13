@@ -1,7 +1,7 @@
 package no.bekk.introduction
 
 class Konsulent(
-    val name: String,
+    val navn: String,
 )
 
 fun main() {

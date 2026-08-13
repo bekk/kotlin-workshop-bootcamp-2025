@@ -1,12 +1,12 @@
 package no.bekk.introduction
 
 // Feltene i `Person` kan ikke endres fordi de er deklarert med `val`
-data class Person(val name: String, val age: Int)
+data class Person(val navn: String, val alder: Int)
 
 fun main() {
     // Oppgave 1
     val patrick = Person("Patrick", 28)
-    //patrick.name = "Espen"
+    //patrick.navn = "Espen"
 
     // Oppgave 2:
     val viktigeTall = mutableListOf(1, 2, 3)

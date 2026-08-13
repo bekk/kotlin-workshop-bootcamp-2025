@@ -99,13 +99,13 @@ fun addWithDefault(a: Int, b: Int = 0) = a + b
 
 </details>
 
-## Nullabillity
+## Nullability
 
 I Kotlin er det en viktig forskjell på typer som kan være `null` og typer som ikke kan være `null`.
 Typer som kan være `null` har et `?`-tegn etter typen, f.eks. `String?` er en type som kan være `null`, mens `String` er
 en type som ikke kan være `null`.
-Dette er en viktig forskjell fra Java, hvor alle typer kan være `null` med mindre de er primitive typer som `Int`,
-`Boolean`, etc.
+Dette er en viktig forskjell fra Java, hvor alle typer kan være `null` med mindre de er primitive typer som `int`,
+`boolean`, etc.
 
 I kotlin så må en eksplisitt håndtere `null`-verdier, og det finnes flere måter å gjøre dette på:
 
@@ -138,7 +138,7 @@ I kotlin så må en eksplisitt håndtere `null`-verdier, og det finnes flere må
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
+Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullability.kt).
 
 1. Kjør `main`-funksjonen. Hva skjer og hvorfor? (PS: Det kan være du må trykke på den øverste røde "error"-sirkelen og
    scrolle opp i terminalen for å se feilen :) )
@@ -169,7 +169,7 @@ Vi må kommentere ut kodelinje 8 fordi `String`-typen ikke kan være `null`, og 
 Oppgave 3:
 
 ```kotlin
-fun skrivUtStringlengde(streng: String?): Int? {
+fun finnStrengLengdeEllerNull(streng: String?): Int? {
     return streng?.length
 }
 ```
@@ -177,7 +177,7 @@ fun skrivUtStringlengde(streng: String?): Int? {
 Oppgave 4:
 
 ```kotlin
-fun skrivUtStringlengde(streng: String?): Int {
+fun finnStrengLengde(streng: String?): Int {
     return streng?.length ?: 0
 }
 ```
@@ -190,10 +190,10 @@ I Kotlin defineres klasser med `class`-nøkkelordet. En klasse kan ha egenskaper
 Egenskaper defineres med `val` eller `var`, og metoder defineres med `fun`. Her er et eksempel på en klasse:
 
 ```kotlin
-class Person(val name: String, var age: Int) {
+class Person(val navn: String, var alder: Int) {
     fun introduce() {
         println(
-            "Hei, jeg heter $name og er $age år gammel"
+            "Hei, jeg heter $navn og er $alder år gammel"
         )
     }
 }
@@ -267,7 +267,7 @@ Endringen i objektutskriften er fordi `Konsulent` alle vanlige klasser (`class`)
 Dette fører til at utskriften av `println(konsulent)` blir noe sånt som `Konsulent@6d06d69c`. Instanser av `data class`
 derimot,
 har en implementasjon av `toString` som skriver ut alle feltene i klassen, slik at utskriften blir noe sånt som
-`Konsulent(name=Patrick)`.
+`Konsulent(navn=Patrick)`.
 
 Endringen i sammenligningen er fordi vanlige klasser (`class`) har en default implementasjon av `==` (eller `equals` som
 det heter)
@@ -317,10 +317,10 @@ Denne gir deg muligheten til å lage en kopi av et objekt med noen av feltene en
 uendret.
 
 ```kotlin
-val patrick = Person(name = "Patrick", age = 28)
+val patrick = Person(navn = "Patrick", alder = 28)
 
 val eldrePatrick =
-    patrick.copy(age = 29) // Dette lager en kopi av `patrick` som er 29 år gammel, men beholder navnet "Patrick".
+    patrick.copy(alder = 29) // Dette lager en kopi av `patrick` som er 29 år gammel, men beholder navnet "Patrick".
 
 ```
 
@@ -330,8 +330,8 @@ Oppgaver:
 
 **Oppgave 1:**
 
-1. Kommenter inn linjen med `patrick.name`, og undersøk feilen du får. Hvorfor er ikke dette lov?
-2. Hvordan kan du opprette et nytt person-objekt med samme verdi for `age` men med et annet navn?"
+1. Kommenter inn linjen med `patrick.navn`, og undersøk feilen du får. Hvorfor er ikke dette lov?
+2. Hvordan kan du opprette et nytt person-objekt med samme verdi for `alder` men med et annet navn?"
 
 **Oppgave 2:**
 
@@ -346,14 +346,14 @@ Dette skal da gjøres uten å endre på hvordan funksjonen `funkSjonalitetSomIkk
 
 Løsningsforslag til oppgave 1:
 
-Linja `patrick.name = "Espen"` er ikke lov fordi `name` er definert som en ikke-muterbar verdi med nøkkelordet `val` og
+Linja `patrick.navn = "Espen"` er ikke lov fordi `navn` er definert som en ikke-muterbar verdi med nøkkelordet `val` og
 kan dermed ikke endres etter at objektet er opprettet.
 
 ```kotlin
 val patrick = Person("Patrick", 28)
-val espen = patrick.copy(name = "Espen")
+val espen = patrick.copy(navn = "Espen")
 
-println(espen) // -> Person(name=Espen, age=28)
+println(espen) // -> Person(navn=Espen, alder=28)
 ```
 
 Koden kræsjer fordi vi legger til tallet 4 i den muterbare lista `viktigeTall` i funksjonen
@@ -486,7 +486,7 @@ val antallAarIBekk = coacher2026.map { it.aarIBekk }.reduce { aarIBekk1, aarIBek
 val teknologiCoacher = coacher2026.filter { it.avdeling == Avdeling.TEKNOLOGI }
 
 val endredeCoacher = coacher2026.map { coach ->
-    when (coach.name) {
+    when (coach.navn) {
         "Frikk" -> coach.copy(avdeling = Avdeling.BMC)
         "Sivert" -> coach.copy(avdeling = Avdeling.DESIGN)
         else -> coach
@@ -536,7 +536,7 @@ Dette kan skrives om til:
 ```kotlin
 fun List<Int>.fjernNegativeVerdier(): List<Int> = this.filter { it > 0 }
 fun List<Int>.kvadrerVerdier(): List<Int> = this.map { it * it }
-fun List<Int>.sjekkOmListaHarEnVerdiOver(verdi: Int): List<Boolean> = this.any { it > verdi }
+fun List<Int>.sjekkOmListaHarEnVerdiOver(verdi: Int): Boolean = this.any { it > verdi }
 
 listOf(-5, -2, 0, 2, 5)
    .fjernNegativeVerdier()
@@ -568,7 +568,7 @@ fun List<BootcampCoach>.fraAvdeling(avdeling: Avdeling): List<BootcampCoach> {
 // Oppgave 2
 fun List<BootcampCoach>.skrivUtInfo() {
     this.forEach { coach ->
-        println("${coach.name} er i avdeling ${coach.avdeling} og har jobbet ${coach.aarIBekk} år i Bekk")
+        println("${coach.navn} er i avdeling ${coach.avdeling} og har jobbet ${coach.aarIBekk} år i Bekk")
     }
 }
 

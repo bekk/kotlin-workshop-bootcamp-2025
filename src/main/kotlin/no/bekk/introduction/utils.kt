@@ -1,7 +1,7 @@
 package no.bekk.introduction
 
 data class BootcampCoach(
-    val name: String,
+    val navn: String,
     val avdeling: Avdeling,
     val aarIBekk: Int,
 )
