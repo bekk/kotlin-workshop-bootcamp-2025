@@ -17,7 +17,7 @@ Kotlin har to nøkkelord for å definere variabler: `val` og `var`.
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Variabler.kt](introduction/src/main/kotlin/no/bekk/introduction/Variabler.kt).
+Åpne filen i introduction som heter [Variabler.kt](src/main/kotlin/no/bekk/introduction/Variabler.kt).
 
 1. Prøv å kjøre `main`-funksjonen. Hva får du ut i konsollen?
 2. Bytt ut `var` med `val` på linje 4, og kjør `main`-funksjonen igjen. Hva skjer nå? Hvorfor er dette ikke lov?
@@ -29,8 +29,8 @@ Oppgaver:
 1. Utskriften i konsollen skriver ut :
 
 ```kotlin
-Verdien til tall1 er : 1
-Verdien til tall1 pluss 1 er : 2
+Verdien til tall1 er: 1
+Verdien til tall1 pluss 1 er: 2
 Verdien til tall1 pluss 1 delt på to er: 1
 ```
 
@@ -64,7 +64,7 @@ Man kan også gi et parameter en defaultverdi ved å skrive `= <verdi>` etter ty
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Funksjoner.kt](introduction/src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
+Åpne filen i introduction som heter [Funksjoner.kt](src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
 
 1. Lag en funksjon som heter `add` som tar to heltall som parametere og returnerer summen av dem.
 2. Lag en ny funksjon som heter `addWithDefault` som tar to heltall som parametere, men det andre parameteret skal ha en
@@ -99,13 +99,13 @@ fun addWithDefault(a: Int, b: Int = 0) = a + b
 
 </details>
 
-## Nullabillity
+## Nullability
 
 I Kotlin er det en viktig forskjell på typer som kan være `null` og typer som ikke kan være `null`.
 Typer som kan være `null` har et `?`-tegn etter typen, f.eks. `String?` er en type som kan være `null`, mens `String` er
 en type som ikke kan være `null`.
-Dette er en viktig forskjell fra Java, hvor alle typer kan være `null` med mindre de er primitive typer som `Int`,
-`Boolean`, etc.
+Dette er en viktig forskjell fra Java, hvor alle typer kan være `null` med mindre de er primitive typer som `int`,
+`boolean`, etc.
 
 I kotlin så må en eksplisitt håndtere `null`-verdier, og det finnes flere måter å gjøre dette på:
 
@@ -138,7 +138,7 @@ I kotlin så må en eksplisitt håndtere `null`-verdier, og det finnes flere må
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Nullability.kt](introduction/src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
+Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullability.kt).
 
 1. Kjør `main`-funksjonen. Hva skjer og hvorfor? (PS: Det kan være du må trykke på den øverste røde "error"-sirkelen og
    scrolle opp i terminalen for å se feilen :) )
@@ -160,7 +160,7 @@ Når du kommenterer ut kodelinje 8 og endrer typen på parameteret `streng` fra 
 kompilere og skrive ut
 
 ```kotlin
-Lengden på streng1 er : 23
+Lengden på streng1 er: 23
 ```
 
 Vi må kommentere ut kodelinje 8 fordi `String`-typen ikke kan være `null`, og vi prøver å kalle `length` på en `null`
@@ -169,7 +169,7 @@ Vi må kommentere ut kodelinje 8 fordi `String`-typen ikke kan være `null`, og 
 Oppgave 3:
 
 ```kotlin
-fun skrivUtStringlengde(streng: String?): Int? {
+fun finnStrengLengdeEllerNull(streng: String?): Int? {
     return streng?.length
 }
 ```
@@ -177,7 +177,7 @@ fun skrivUtStringlengde(streng: String?): Int? {
 Oppgave 4:
 
 ```kotlin
-fun skrivUtStringlengde(streng: String?): Int? {
+fun finnStrengLengde(streng: String?): Int {
     return streng?.length ?: 0
 }
 ```
@@ -190,10 +190,10 @@ I Kotlin defineres klasser med `class`-nøkkelordet. En klasse kan ha egenskaper
 Egenskaper defineres med `val` eller `var`, og metoder defineres med `fun`. Her er et eksempel på en klasse:
 
 ```kotlin
-class Person(val name: String, var age: Int) {
+class Person(val navn: String, var alder: Int) {
     fun introduce() {
         println(
-            "Hei, jeg heter $name og er $age år gammel"
+            "Hei, jeg heter $navn og er $alder år gammel"
         )
     }
 }
@@ -201,7 +201,7 @@ class Person(val name: String, var age: Int) {
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Klasser.kt](introduction/src/main/kotlin/no/bekk/introduction/Klasser.kt).
+Åpne filen i introduction som heter [Klasser.kt](src/main/kotlin/no/bekk/introduction/Klasser.kt).
 
 1. Lag en klasse som heter `Coach` som har følgende egenskaper:
     - `navn`: String
@@ -249,7 +249,7 @@ måtte skrive mye kode selv.
 
 Oppgaver:
 
-Åpne filen i introduction som heter [DataClass.kt](introduction/src/main/kotlin/no/bekk/introduction/DataClass.kt). Her
+Åpne filen i introduction som heter [DataClass.kt](src/main/kotlin/no/bekk/introduction/DataClass.kt). Her
 ligger det en klasse som heter `Konsulent` og en main funksjon.
 
 1. Kjør main funksjonen, og se hva som skjer.
@@ -267,7 +267,7 @@ Endringen i objektutskriften er fordi `Konsulent` alle vanlige klasser (`class`)
 Dette fører til at utskriften av `println(konsulent)` blir noe sånt som `Konsulent@6d06d69c`. Instanser av `data class`
 derimot,
 har en implementasjon av `toString` som skriver ut alle feltene i klassen, slik at utskriften blir noe sånt som
-`Konsulent(name=Patrick)`.
+`Konsulent(navn=Patrick)`.
 
 Endringen i sammenligningen er fordi vanlige klasser (`class`) har en default implementasjon av `==` (eller `equals` som
 det heter)
@@ -317,21 +317,21 @@ Denne gir deg muligheten til å lage en kopi av et objekt med noen av feltene en
 uendret.
 
 ```kotlin
-val patrick = Person(name = "Patrick", age = 27)
+val patrick = Person(navn = "Patrick", alder = 28)
 
 val eldrePatrick =
-    patrick.copy(age = 28) // Dette lager en kopi av `patrick` som er 28 år gammel, men beholder navnet "Patrick".
+    patrick.copy(alder = 29) // Dette lager en kopi av `patrick` som er 29 år gammel, men beholder navnet "Patrick".
 
 ```
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Mutability.kt](introduction/src/main/kotlin/no/bekk/introduction/Mutability.kt)
+Åpne filen i introduction som heter [Mutability.kt](src/main/kotlin/no/bekk/introduction/Mutability.kt)
 
 **Oppgave 1:**
 
-1. Kommenter inn linjen med `patrick.name`, og undersøk feilen du får. Hvorfor er ikke dette lov?
-2. Hvordan kan du opprette et nytt person-objekt med samme verdi for `age` men med et annet navn?"
+1. Kommenter inn linjen med `patrick.navn`, og undersøk feilen du får. Hvorfor er ikke dette lov?
+2. Hvordan kan du opprette et nytt person-objekt med samme verdi for `alder` men med et annet navn?"
 
 **Oppgave 2:**
 
@@ -346,14 +346,14 @@ Dette skal da gjøres uten å endre på hvordan funksjonen `funkSjonalitetSomIkk
 
 Løsningsforslag til oppgave 1:
 
-Linja `patrick.name = "Sondre"` er ikke lov fordi `name` er definert som en ikke-muterbar verdi med nøkkelordet `val` og
+Linja `patrick.navn = "Espen"` er ikke lov fordi `navn` er definert som en ikke-muterbar verdi med nøkkelordet `val` og
 kan dermed ikke endres etter at objektet er opprettet.
 
 ```kotlin
-val patrick = Person("Patrick", 27)
-val sondre = patrick.copy(name = "Sondre")
+val patrick = Person("Patrick", 28)
+val espen = patrick.copy(navn = "Espen")
 
-println(sondre) // -> Person(name=Sondre, age=27)
+println(espen) // -> Person(navn=Espen, alder=28)
 ```
 
 Koden kræsjer fordi vi legger til tallet 4 i den muterbare lista `viktigeTall` i funksjonen
@@ -451,7 +451,7 @@ println(tallMedToEllerMer) // [2, 3]
 
 ```kotlin
 val inneholderTalletTo = listOf(1, 2, 3).any { it == 2 }
-println(inneHolderTalletTo) // true
+println(inneholderTalletTo) // true
 ```
 
 Kraften i bruken av slike `higher order functions` og lambda-funksjoner er at de lar deg skrive kode som bryter ned
@@ -468,12 +468,12 @@ listOf(-5, -2, 0, 2, 5)
 
 Oppgave:
 
-Åpne filen som heter [HighOrderFunction.kt](introduction/src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
+Åpne filen som heter [HighOrderFunction.kt](src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
 
-1. Bruk `coacher2025`-listen, og bruk lambdafunksjon(er) for å finne ut hvor mange år alle coachene i 2025 har jobbet i
+1. Bruk `coacher2026`-listen, og bruk lambdafunksjon(er) for å finne ut hvor mange år alle coachene i 2026 har jobbet i
    Bekk.
-2. Bruk `coacher2025`-listen, og lag en liste for coachene som er i teknologi-avdelingen.
-3. Bruk `coacher2025`-listen, og skriv kode for å lage en kopi av lista hvor Frikk er i BMC-avdelingen og Sivert er i
+2. Bruk `coacher2026`-listen, og lag en liste for coachene som er i teknologi-avdelingen.
+3. Bruk `coacher2026`-listen, og skriv kode for å lage en kopi av lista hvor Frikk er i BMC-avdelingen og Sivert er i
    Design-avdelingen.
 
 Bruk main-funksjonen til å sjekke at du får riktig resultat.
@@ -481,12 +481,12 @@ Bruk main-funksjonen til å sjekke at du får riktig resultat.
 <details><summary> Løsningsforslag 🤠 </summary>
 
 ```kotlin
-val antallAarIBekk = coacher2025.map { it.aarIBekk }.reduce { aarIBekk1, aarIBekk2 -> aarIBekk1 + aarIBekk2 }
+val antallAarIBekk = coacher2026.map { it.aarIBekk }.reduce { aarIBekk1, aarIBekk2 -> aarIBekk1 + aarIBekk2 }
 
-val teknologiCoacher = coacher2025.filter { it.avdeling == Avdeling.TEKNOLOGI }
+val teknologiCoacher = coacher2026.filter { it.avdeling == Avdeling.TEKNOLOGI }
 
-val endredeCoacher = coacher2025.map { coach ->
-    when (coach.name) {
+val endredeCoacher = coacher2026.map { coach ->
+    when (coach.navn) {
         "Frikk" -> coach.copy(avdeling = Avdeling.BMC)
         "Sivert" -> coach.copy(avdeling = Avdeling.DESIGN)
         else -> coach
@@ -534,19 +534,19 @@ listOf(-5, -2, 0, 2, 5)
 Dette kan skrives om til:
 
 ```kotlin
-val List<Int>.fjernNegativeVerdier(): List<Int> = this.filter { it > 0 }
-val List<Int>.kvadrerVerdier(): List<Int> = this.map { it * it }
-val List<Int>.sjekkOmListaHarEnVerdiOver(verdi: Int): List<Int> = this.any { it > verdi }
+fun List<Int>.fjernNegativeVerdier(): List<Int> = this.filter { it > 0 }
+fun List<Int>.kvadrerVerdier(): List<Int> = this.map { it * it }
+fun List<Int>.sjekkOmListaHarEnVerdiOver(verdi: Int): Boolean = this.any { it > verdi }
 
 listOf(-5, -2, 0, 2, 5)
-    .fjernNegativeVerdier()
-    .kvadrerVerdier()
-    .sjekkOmListaHarEnVerdiOver(20) // -> true
+   .fjernNegativeVerdier()
+   .kvadrerVerdier()
+   .sjekkOmListaHarEnVerdiOver(20) // -> true
 ```
 
 Oppgave:
 Oppgavene ligger i
-fila [ExtensionFunctions.kt](introduction/src/main/kotlin/no/bekk/introduction/ExtensionFunctions.kt).
+fila [ExtensionFunctions.kt](src/main/kotlin/no/bekk/introduction/ExtensionFunctions.kt).
 
 1. Lag en extension function for `List<BootcampCoach>` som returnerer bare Coacher fra en avdeling.
 2. Lag en extension function for `List<BootcampCoach>` som skriver ut navn, antall år i Bekk og avdeling for alle
@@ -568,7 +568,7 @@ fun List<BootcampCoach>.fraAvdeling(avdeling: Avdeling): List<BootcampCoach> {
 // Oppgave 2
 fun List<BootcampCoach>.skrivUtInfo() {
     this.forEach { coach ->
-        println("${coach.name} er i avdeling ${coach.avdeling} og har jobbet ${coach.aarIBekk} år i Bekk")
+        println("${coach.navn} er i avdeling ${coach.avdeling} og har jobbet ${coach.aarIBekk} år i Bekk")
     }
 }
 

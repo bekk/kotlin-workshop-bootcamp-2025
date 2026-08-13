@@ -1,7 +1,7 @@
 package no.bekk.introduction
 
 fun main() {
-    println("Årets coacher er $coacher2025!")
+    println("Årets coacher er $coacher2026!")
 
     // TODO: Skriv kode som summerer opp antall år alle de har vært i bekk
     // val antallAarIBekk =

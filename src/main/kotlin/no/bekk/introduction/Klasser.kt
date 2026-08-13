@@ -13,7 +13,7 @@ fun main() {
     /*
     val coach = Coach(
         navn = "Patrick",
-        aarIBekk = 2,
+        aarIBekk = 3,
         favorittaktivitet = "volleyball",
     )
     coach.skrivUtInfo()
