@@ -10,7 +10,7 @@ fun main() {
 
     // Oppgave 2:
     val viktigeTall = mutableListOf(1, 2, 3)
-    skrivUtTallListeOgTalletFire(viktigeTall)
+    // skrivUtTallListeOgTalletFire(viktigeTall)
 
     // Ikke fjern eller kommenter ut denne linja, den er viktig for oppgave 2 :)
     funkSjonalitetSomIkkeLikerTalletFire(viktigeTall)

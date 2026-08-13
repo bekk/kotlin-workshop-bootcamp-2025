@@ -17,7 +17,7 @@ Kotlin har to nøkkelord for å definere variabler: `val` og `var`.
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Variabler.kt](introduction/src/main/kotlin/no/bekk/introduction/Variabler.kt).
+Åpne filen i introduction som heter [Variabler.kt](src/main/kotlin/no/bekk/introduction/Variabler.kt).
 
 1. Prøv å kjøre `main`-funksjonen. Hva får du ut i konsollen?
 2. Bytt ut `var` med `val` på linje 4, og kjør `main`-funksjonen igjen. Hva skjer nå? Hvorfor er dette ikke lov?
@@ -29,8 +29,8 @@ Oppgaver:
 1. Utskriften i konsollen skriver ut :
 
 ```kotlin
-Verdien til tall1 er : 1
-Verdien til tall1 pluss 1 er : 2
+Verdien til tall1 er: 1
+Verdien til tall1 pluss 1 er: 2
 Verdien til tall1 pluss 1 delt på to er: 1
 ```
 
@@ -64,7 +64,7 @@ Man kan også gi et parameter en defaultverdi ved å skrive `= <verdi>` etter ty
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Funksjoner.kt](introduction/src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
+Åpne filen i introduction som heter [Funksjoner.kt](src/main/kotlin/no/bekk/introduction/Funksjoner.kt)
 
 1. Lag en funksjon som heter `add` som tar to heltall som parametere og returnerer summen av dem.
 2. Lag en ny funksjon som heter `addWithDefault` som tar to heltall som parametere, men det andre parameteret skal ha en
@@ -138,7 +138,7 @@ I kotlin så må en eksplisitt håndtere `null`-verdier, og det finnes flere må
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Nullability.kt](introduction/src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
+Åpne filen i introduction som heter [Nullability.kt](src/main/kotlin/no/bekk/introduction/Nullabillity.kt).
 
 1. Kjør `main`-funksjonen. Hva skjer og hvorfor? (PS: Det kan være du må trykke på den øverste røde "error"-sirkelen og
    scrolle opp i terminalen for å se feilen :) )
@@ -160,7 +160,7 @@ Når du kommenterer ut kodelinje 8 og endrer typen på parameteret `streng` fra 
 kompilere og skrive ut
 
 ```kotlin
-Lengden på streng1 er : 23
+Lengden på streng1 er: 23
 ```
 
 Vi må kommentere ut kodelinje 8 fordi `String`-typen ikke kan være `null`, og vi prøver å kalle `length` på en `null`
@@ -177,7 +177,7 @@ fun skrivUtStringlengde(streng: String?): Int? {
 Oppgave 4:
 
 ```kotlin
-fun skrivUtStringlengde(streng: String?): Int? {
+fun skrivUtStringlengde(streng: String?): Int {
     return streng?.length ?: 0
 }
 ```
@@ -201,7 +201,7 @@ class Person(val name: String, var age: Int) {
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Klasser.kt](introduction/src/main/kotlin/no/bekk/introduction/Klasser.kt).
+Åpne filen i introduction som heter [Klasser.kt](src/main/kotlin/no/bekk/introduction/Klasser.kt).
 
 1. Lag en klasse som heter `Coach` som har følgende egenskaper:
     - `navn`: String
@@ -249,7 +249,7 @@ måtte skrive mye kode selv.
 
 Oppgaver:
 
-Åpne filen i introduction som heter [DataClass.kt](introduction/src/main/kotlin/no/bekk/introduction/DataClass.kt). Her
+Åpne filen i introduction som heter [DataClass.kt](src/main/kotlin/no/bekk/introduction/DataClass.kt). Her
 ligger det en klasse som heter `Konsulent` og en main funksjon.
 
 1. Kjør main funksjonen, og se hva som skjer.
@@ -326,7 +326,7 @@ val eldrePatrick =
 
 Oppgaver:
 
-Åpne filen i introduction som heter [Mutability.kt](introduction/src/main/kotlin/no/bekk/introduction/Mutability.kt)
+Åpne filen i introduction som heter [Mutability.kt](src/main/kotlin/no/bekk/introduction/Mutability.kt)
 
 **Oppgave 1:**
 
@@ -451,7 +451,7 @@ println(tallMedToEllerMer) // [2, 3]
 
 ```kotlin
 val inneholderTalletTo = listOf(1, 2, 3).any { it == 2 }
-println(inneHolderTalletTo) // true
+println(inneholderTalletTo) // true
 ```
 
 Kraften i bruken av slike `higher order functions` og lambda-funksjoner er at de lar deg skrive kode som bryter ned
@@ -468,7 +468,7 @@ listOf(-5, -2, 0, 2, 5)
 
 Oppgave:
 
-Åpne filen som heter [HighOrderFunction.kt](introduction/src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
+Åpne filen som heter [HighOrderFunction.kt](src/main/kotlin/no/bekk/introduction/HighOrderFunction.kt):
 
 1. Bruk `coacher2026`-listen, og bruk lambdafunksjon(er) for å finne ut hvor mange år alle coachene i 2026 har jobbet i
    Bekk.
@@ -534,19 +534,19 @@ listOf(-5, -2, 0, 2, 5)
 Dette kan skrives om til:
 
 ```kotlin
-val List<Int>.fjernNegativeVerdier(): List<Int> = this.filter { it > 0 }
-val List<Int>.kvadrerVerdier(): List<Int> = this.map { it * it }
-val List<Int>.sjekkOmListaHarEnVerdiOver(verdi: Int): List<Int> = this.any { it > verdi }
+fun List<Int>.fjernNegativeVerdier(): List<Int> = this.filter { it > 0 }
+fun List<Int>.kvadrerVerdier(): List<Int> = this.map { it * it }
+fun List<Int>.sjekkOmListaHarEnVerdiOver(verdi: Int): List<Boolean> = this.any { it > verdi }
 
 listOf(-5, -2, 0, 2, 5)
-    .fjernNegativeVerdier()
-    .kvadrerVerdier()
-    .sjekkOmListaHarEnVerdiOver(20) // -> true
+   .fjernNegativeVerdier()
+   .kvadrerVerdier()
+   .sjekkOmListaHarEnVerdiOver(20) // -> true
 ```
 
 Oppgave:
 Oppgavene ligger i
-fila [ExtensionFunctions.kt](introduction/src/main/kotlin/no/bekk/introduction/ExtensionFunctions.kt).
+fila [ExtensionFunctions.kt](src/main/kotlin/no/bekk/introduction/ExtensionFunctions.kt).
 
 1. Lag en extension function for `List<BootcampCoach>` som returnerer bare Coacher fra en avdeling.
 2. Lag en extension function for `List<BootcampCoach>` som skriver ut navn, antall år i Bekk og avdeling for alle
